@@ -1,0 +1,77 @@
+/* src/styles/Features.module.css */
+
+/* ADD THESE STYLES FOR THE SECTION BACKGROUND */
+.featuresSection {
+    padding: 80px 20px; /* Copied from .section-padded */
+    max-width: 1700px; /* Copied from .section-padded */
+    margin: 0 auto; /* Copied from .section-padded */
+    text-align: center; /* Copied from .section-padded */
+    background-color: #1e525c; /* Your desired background color for ONLY this section */
+}
+/* END NEW STYLES */
+
+.featuresSection h2 { 
+    color: #fffaf3;
+}
+.featureDescription {
+  font-size: 1em; /* Example: Adjust font size */
+  line-height: 1.6; /* Example: Adjust line height */
+  color: #666; /* Example: Adjust color */
+  margin-top: 25px; /* Example: Add top margin */
+  margin-bottom: 0; /* Example: Remove default bottom margin if not desired */
+  margin-left: 10px;
+}
+
+.sectionHeading {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    color: white; /* Default color */
+    background-image: linear-gradient(to right, #2ecc71, #3498db); /* Ombre for the heading text */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block; /* Essential for background-clip to work on heading */
+}
+
+.featureGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.featureItem {
+    background-color: #ffffff; /* Keeping this white for contrast with the new section background */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    max-width: 300px;
+    margin: 0 auto
+    
+}
+
+.featureItem img {
+    height: 70px;
+    margin-bottom: 20px;
+}
+
+.featureItem h3 {
+    color: #f79554;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    line-height: 30px;
+}
+.featureItem:hover {
+    transform: translateY(-8px) scale(1.04); /* Lifts more (8px) and scales slightly larger (4%) */
+    box-shadow:
+        0 18px 38px rgba(0,0,0,0.2), /* Main shadow: more pronounced, darker, lower for clear lift */
+        0 0 30px rgba(46, 204, 113, 0.4); /* Glow: no offset, large blur, using Diabeter's green with opacity */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .featureGrid {
+        grid-template-columns: 1fr;
+    }
+}

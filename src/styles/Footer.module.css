@@ -1,0 +1,81 @@
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.footerContent {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    
+}
+
+.footerLogo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #f79554;
+}
+
+.footerLogo img {
+    height: 70px;
+    margin-right: 10px;
+}
+
+.footerLinks ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footerLinks ul li {
+    margin: 0 15px;
+}
+
+.footerLinks ul li a {
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.footerLinks ul li a:hover {
+    color: #2ecc71;
+}
+
+.socialMedia img {
+    height: 30px;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+.copyrightText {
+  /* Your desired styles for this specific paragraph */
+  font-size: 0.85em; /* Example: Make it slightly smaller */
+  color: #a0a0a0; /* Example: A lighter grey color */
+  margin-top: 15px; /* Example: Add some space above it */
+  text-align: center; /* Example: Ensure it's centered */
+  /* Add any other styles you want to apply uniquely to this <p> */
+}
+
+.socialMedia img:hover {
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footerContent {
+        flex-direction: column;
+    }
+
+    .footerLinks, .social-media {
+        margin-top: 20px;
+    }
+}

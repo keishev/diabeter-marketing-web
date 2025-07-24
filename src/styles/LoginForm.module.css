@@ -1,0 +1,149 @@
+/* src/styles/LoginForm.module.css */
+.pageBackground {
+    background-color: #fffaf3;
+    display: flex;
+    flex-direction: column;
+}
+
+.formContainer {
+  max-width: 500px; /* Adjusted: Make the overall container smaller */
+  margin: 80px auto;
+  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.formContainer h2 {
+  font-size: 2.2em;
+  color: #1e535c;
+  margin-bottom: 30px;
+}
+
+/* NEW: Styles for the grid of inputs */
+.gridInputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns for email/password */
+  gap: 20px; /* Space between grid items */
+  margin-bottom: 20px; /* Space below the grid inputs before next section */
+}
+
+.formGroup {
+  /* Reset margin for grid items */
+  margin-bottom: 0;
+  text-align: left;
+}
+
+/* Add margin for elements below the grid, if any.
+   For LoginForm, the message is below, so we don't need a specific margin-bottom for formGroup. */
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #1e525c;
+  font-size: 0.95em;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #1e525c;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.inputError {
+  border-color: #e74c3c !important;
+}
+
+.errorText {
+  color: #e74c3c;
+  font-size: 0.85em;
+  margin-top: 5px;
+  display: block;
+}
+
+.ctaButton {
+  background-color: #f79554;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.ctaButton:hover {
+  background-color: #c66524;
+  transform: translateY(-2px);
+}
+
+.signupPrompt {
+  margin-top: 25px;
+  font-size: 0.95em;
+  color: #666;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: #3498db;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0;
+  margin-left: 5px;
+}
+
+.linkButton:hover {
+  color: #2980b9;
+}
+
+.message {
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 0.95em;
+}
+
+.successMessage {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.errorMessage {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Responsive adjustments for the grid */
+@media (max-width: 500px) { /* Adjust breakpoint for login form */
+  .formContainer {
+    margin: 40px 20px;
+    padding: 30px 20px;
+  }
+  .formContainer h2 {
+    font-size: 1.8em;
+  }
+  .gridInputs {
+    grid-template-columns: 1fr; /* Stack inputs vertically on small screens */
+  }
+}

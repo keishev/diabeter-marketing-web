@@ -1,0 +1,132 @@
+.header {
+    background-color: #fffaf3;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    margin-right: 40px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #1e525c; /* Diabeter green */
+    margin-left: -370px;
+}
+
+.logo img {
+  height: 55px; /* Adjust logo size */
+  width: auto;
+  margin-right: 10px;
+  /* Add these lines for vertical adjustment without affecting layout */
+  transform: translateY(15px); /* Example: Moves the image down by 5px relative to its current position */
+  /* transform: translateY(-5px); for moving it up */
+}
+
+
+.navList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navList li {
+    margin-left: 25px;
+}
+
+.navList li a {
+    color: #1e525c;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navList li a:hover {
+    color: #f79554;
+}
+
+.hero {
+    padding: 80px 20px;
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 60vh;
+}
+
+.hero h1 {
+    font-size: 3.5em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    margin-left: -400px;
+    background: linear-gradient(to right, #1e525c, #f79554); /* Example: green to blue */
+    /* You can adjust the colors and direction here */
+    /* background: linear-gradient(to right, #ff7e5f, #feb47b); Example: warm orange gradient */
+    /* background: linear-gradient(to right, #ee9ca7, #ffdde1); Example: soft pink gradient */
+
+
+    -webkit-background-clip: text; /* For Safari/Chrome */
+    background-clip: text;
+    -webkit-text-fill-color: transparent; /* For Safari/Chrome */
+    color: transparent; /* Standard for other browsers */
+
+    /* Optional: Ensure font weight is appropriate for gradient visibility */
+    font-weight: 700; /* Make it bold so the gradient is more visible */
+    line-height: 70px;
+}
+.hero p {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+    margin-left: -400px;
+    margin-top: -250px;
+}
+
+.heroImage {
+    max-width: 100%;
+    height: 500px;
+    margin-top: -300px;
+    border-radius: 10px;
+    margin-left: 600px;
+    margin-top: -250px;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+    }
+
+    .navList {
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navList li {
+        margin: 0 10px 10px 10px;
+    }
+
+    .hero h1 {
+        font-size: 2.5em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2em;
+    }
+}

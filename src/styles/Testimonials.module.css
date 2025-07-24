@@ -1,0 +1,132 @@
+/* src/styles/Testimonials.module.css */
+
+.testimonialsSection {
+    background-color: #0f3239;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    overflow: hidden; /* Crucial to hide testimonials that are off-screen */
+}
+
+.sectionHeading {
+    color: white;
+    font-size: 2.2em;
+    margin-bottom: 40px;
+}
+
+.carouselContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1300px; /* This sets the overall width available for the carousel */
+    margin: 0 auto;
+    position: relative;
+}
+
+.testimonialWrapper {
+    flex-grow: 1;
+    position: relative;
+    height: 300px; /* Adjust height to contain scaled items */
+    overflow: hidden; /* This crops the items so only portions are visible */
+    /* Add padding here to create internal space from buttons if needed */
+    padding: 0 10px; /* Small horizontal padding inside wrapper if items touch edges */
+}
+
+.testimonialItem {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 8px;
+    /* IMPORTANT CHANGE: Reduce min-width significantly */
+    min-width: 40%; /* Reduced from 60%. This is the base width before scaling. */
+    max-width: 500px; /* Adjust max-width if needed; 500px is usually good for content */
+    text-align: center;
+    position: absolute;
+    top: 50%; /* Vertically centers the item */
+    /* 'left' property is set dynamically in JS */
+    transform: translate(-50%, -50%); /* This centers the item horizontally relative to its 'left' value and vertically */
+    
+    transition: left 0.5s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out, filter 0.5s ease-in-out, z-index 0.0s linear 0.25s;
+    will-change: left, transform, opacity, filter;
+    cursor: pointer;
+}
+
+.testimonialItem p {
+    font-style: italic;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.testimonialItem cite {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #ddd;
+}
+
+.carouselButton {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.carouselButton svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carouselButton:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #2ecc71;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carouselContainer {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .testimonialWrapper {
+        height: 350px;
+        margin-bottom: 20px;
+    }
+    .testimonialItem {
+        min-width: 90%; /* On mobile, show one item more prominently */
+        transform: translate(-50%, -50%) scale(1); /* Ensure it's centered and not scaled as a snippet */
+        opacity: 1;
+        filter: brightness(1);
+        left: 50%; /* Ensure it's centered on mobile */
+    }
+    .sectionHeading {
+        font-size: 1.8em;
+    }
+    .carouselButton {
+        width: 100%;
+        border-radius: 5px;
+        height: auto;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .testimonialItem {
+        min-width: 95%;
+        font-size: 0.9em;
+    }
+    .testimonialItem p {
+        font-size: 1em;
+    }
+    .testimonialWrapper {
+        height: 380px;
+    }
+}

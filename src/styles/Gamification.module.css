@@ -1,0 +1,162 @@
+/* src/styles/Gamification.module.css */
+
+.gamificationSection {
+    /* Your desired background color for ONLY this section */
+    background-color: #e0f2f7; /* Example: A light blue color */
+    /* Or a subtle gradient if you prefer: */
+    /* background: linear-gradient(to bottom, #e0f2f7, #c1e4ee); */
+    height: 590px;
+    color: #333; /* Darker text for a light background */
+    padding: 80px 20px; /* Provides the vertical padding for the section */
+    text-align: center; /* For the overall section text alignment */
+}
+
+/* Ensure the .gamificationSection.section-light rule is still present if you're overriding index.css */
+.gamificationSection.section-light {
+    background-color: #e0f2f7; /* Keep this to ensure override */
+}
+
+
+.contentWrapper {
+    display: flex; /* Enables flexbox for two-column layout */
+    align-items: center; /* Vertically centers items in the row */
+    justify-content: center; /* Centers the whole wrapper horizontally */
+    max-width: 1200px; /* Limit content width */
+    margin: 0 auto; /* Center the wrapper */
+    gap: 40px; /* Space between the columns */
+    flex-wrap: wrap; /* Allows columns to stack on smaller screens */
+}
+
+.imageColumn {
+    flex: 1; /* Allows this column to grow */
+    min-width: 300px; /* Minimum width before wrapping */
+    text-align: center; /* Center the image within its column */
+    /* Add specific positioning for the character if needed, relative to its container */
+    position: relative; /* If you need to position an element absolutely inside */
+}
+
+.gamificationCharacter { /* Adjust based on your character image */
+    width: 600px;
+    height: 750px;;
+    display: block; /* Removes extra space below image */
+    margin: 0 auto;
+    /* Based on image_3d9f0d.png, the character is on the left and might need some negative margin */
+    /* This positioning can be tricky and might require trial and error with your actual image */
+    position: relative;
+    top: -50px; /* Example: Pull up into the background */
+    left: -50px; /* Example: Pull left into the background */
+    margin-left: -200px;
+    margin-top: -30px;
+    z-index: 1; /* Ensure it stays above the background but below text if text overlaps */
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+mask-mode: alpha; /* Use the alpha channel of the gradient as the mask */
+-webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* For Safari and older browsers */
+-webkit-mask-mode: alpha;
+}
+
+
+.textColumn {
+    flex: 1.5; /* Gives the text column more space */
+    min-width: 400px; /* Minimum width before wrapping */
+    text-align: left; /* Text content aligns left */
+    max-width: 700px; /* Prevents text from being too wide */
+    z-index: 2; /* Ensure text is above background character */
+}
+
+.sectionHeading {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    width: 900px;
+    color: #2c3e50;
+    text-align: left; /* Align heading left as well */
+    margin-top: -100px;
+    margin-left: -70px;
+}
+
+.sectionDescription {
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    color: #555;
+    text-align:justify; /* Align description left */
+    margin-left: -70px;
+}
+
+/* --- START OF CHANGES FOR 2x2 GRID --- */
+.gamificationList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    display: grid; /* Use CSS Grid */
+    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+    gap: 50px; /* Space between grid items */
+    
+    /* Ensure the list itself is left-aligned within its textColumn */
+    /* If max-width is set, you might also want margin: 0; to center the grid within its column */
+    max-width: 600px; /* Limit the overall width of the 2x2 grid */
+    margin: 0 auto; /* Center the grid within textColumn */
+    margin-left: -0px;
+    
+}
+
+.gamificationList li {
+    background-color: #1e525c;
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: #fffaf3;
+   box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    text-align: left; /* Keep text alignment left for individual items */
+    margin-bottom: 0; /* Remove margin-bottom as gap handles spacing */
+    height: 100%; /* Make items same height in a row */
+    display: flex; /* Helps vertically align content if text varies */
+    align-items: center; /* Vertically center content in each list item */
+    height: 100px;
+}
+
+/* Original .gamificationImage from your input, adapt if still needed */
+/* Note: The image in image_3d9f0d.png is a character, not a "screenshot" that fits these styles */
+/*
+.gamificationImage {
+    max-width: 100%;
+    height: 200px; // Consider using auto for height to maintain aspect ratio
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    // These negative margins seem intended for an entirely different layout:
+    // margin-left: -400px;
+    // margin-top: -800px;
+}
+*/
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .contentWrapper {
+        flex-direction: column; /* Stack columns on smaller screens */
+        gap: 20px;
+    }
+    .imageColumn,
+    .textColumn {
+        min-width: unset; /* Remove min-width for stacking */
+        max-width: 100%;
+        width: 100%;
+    }
+    .gamificationCharacter {
+        top: 0; /* Reset character position for stacking */
+        left: 0;
+    }
+    .sectionHeading,
+    .sectionDescription,
+    .gamificationList {
+        text-align: center; /* Center text when stacked if preferred */
+    }
+}
+
+@media (max-width: 500px) {
+    .sectionHeading {
+        font-size: 2em;
+    }
+    .sectionDescription {
+        font-size: 1em;
+    }
+}

@@ -1,0 +1,42 @@
+.nutritionistProfiles {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.section-padded.Nutrionist {
+    color: #fffaf3;
+}
+
+.nutritionistCard {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    max-width: 300px;
+}
+
+.nutritionistCard img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #1e525c;
+}
+
+.nutritionistCard h3 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nutritionistProfiles {
+        flex-direction: column;
+        align-items: center;
+    }
+}
