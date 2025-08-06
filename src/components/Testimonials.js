@@ -7,27 +7,17 @@ const renderStars = (rating) => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
         if (i < rating) {
-            stars.push(<span key={i} className={styles.starFilled}>&#9733;</span>); // Filled star
+            stars.push(<span key={i} className={styles.starFilled}>★</span>); // Filled star
         } else {
-            stars.push(<span key={i} className={styles.starEmpty}>&#9734;</span>); // Empty star
+            stars.push(<span key={i} className={styles.starEmpty}>☆</span>); // Empty star
         }
     }
     return <div className={styles.starsContainer}>{stars}</div>;
 };
 
-const Testimonials = ({
-    sectionTitle,
-    testimonial1, // Expects an object { text, author, rating }
-    testimonial2, // Expects an object { text, author, rating }
-    testimonial3  // Expects an object { text, author, rating }
-}) => {
-    // Create an array from the passed props for easier carousel management
-    // Ensure to include the 'rating' property in the filter if it's mandatory
-    const testimonialsToDisplay = [
-        testimonial1,
-        testimonial2,
-        testimonial3
-    ].filter(t => t && t.text && t.author && typeof t.rating === 'number'); // Filter out any undefined/incomplete ones
+const Testimonials = ({ sectionTitle, testimonials }) => {
+    // Corrected filter to use 'message' and 'userFirstName'
+    const testimonialsToDisplay = testimonials.filter(t => t && t.message && t.userFirstName && typeof t.rating === 'number');
 
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -40,7 +30,14 @@ const Testimonials = ({
     };
 
     if (testimonialsToDisplay.length === 0) {
-        return null; // Don't render if no testimonials are available
+        return (
+            <section id="testimonials" className={styles.testimonialsSection}>
+                <h2 className={styles.sectionHeading}>{sectionTitle}</h2>
+                <div className={styles.placeholderContainer}>
+                    <p className={styles.placeholderText}>No testimonials available at this time. Please check back later!</p>
+                </div>
+            </section>
+        );
     }
 
     return (
@@ -66,27 +63,26 @@ const Testimonials = ({
                             opacity = 1;
                             brightness = 1;
                             zIndex = 3;
-                        } else if (relativePosition === -1 || (relativePosition === testimonialsToDisplay.length -1 && activeIndex === 0)) { // handles wrap-around to left
+                        } else if (relativePosition === -1 || (relativePosition === testimonialsToDisplay.length -1 && activeIndex === 0)) {
                             leftValue = '0%';
                             scale = 0.85;
                             opacity = 0.7;
                             brightness = 0.7;
                             zIndex = 2;
-                        } else if (relativePosition === 1 || (relativePosition === -(testimonialsToDisplay.length -1) && activeIndex === testimonialsToDisplay.length - 1)) { // handles wrap-around to right
+                        } else if (relativePosition === 1 || (relativePosition === -(testimonialsToDisplay.length -1) && activeIndex === testimonialsToDisplay.length - 1)) {
                             leftValue = '100%';
                             scale = 0.85;
                             opacity = 0.7;
                             brightness = 0.7;
                             zIndex = 2;
-                        } else if (relativePosition < -1 || relativePosition > 1) { // Hide elements further away
+                        } else if (relativePosition < -1 || relativePosition > 1) {
                             leftValue = relativePosition < -1 ? '-50%' : '150%';
                             opacity = 0;
                         }
-                        // For more than 3, the opacity 0 will ensure they're hidden.
-
+                        
                         return (
                             <div
-                                key={testimonial.id || `testimonial-${index}`} // Use testimonial.id if available, otherwise a generated key
+                                key={testimonial.id || `testimonial-${index}`}
                                 className={styles.testimonialItem}
                                 style={{
                                     left: leftValue,
@@ -96,9 +92,10 @@ const Testimonials = ({
                                     zIndex: zIndex,
                                 }}
                             >
-                                <p className={styles.testimonialText}>"{testimonial.text}"</p>
-                                {testimonial.rating && renderStars(testimonial.rating)} {/* Render stars if rating exists */}
-                                <cite className={styles.testimonialAuthor}>- {testimonial.author}</cite>
+                                {/* Corrected to use 'message' and 'userFirstName' */}
+                                <p className={styles.testimonialText}>"{testimonial.message}"</p>
+                                {testimonial.rating && renderStars(testimonial.rating)}
+                                <cite className={styles.testimonialAuthor}>- {testimonial.userFirstName}</cite>
                             </div>
                         );
                     })}

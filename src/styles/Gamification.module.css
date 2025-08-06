@@ -5,7 +5,7 @@
     background-color: #e0f2f7; /* Example: A light blue color */
     /* Or a subtle gradient if you prefer: */
     /* background: linear-gradient(to bottom, #e0f2f7, #c1e4ee); */
-    height: 590px;
+    height: 640px;
     color: #333; /* Darker text for a light background */
     padding: 80px 20px; /* Provides the vertical padding for the section */
     text-align: center; /* For the overall section text alignment */
@@ -37,7 +37,7 @@
 
 .gamificationCharacter { /* Adjust based on your character image */
     width: 600px;
-    height: 750px;;
+    height: 800px;;
     display: block; /* Removes extra space below image */
     margin: 0 auto;
     /* Based on image_3d9f0d.png, the character is on the left and might need some negative margin */

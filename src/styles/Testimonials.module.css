@@ -90,6 +90,22 @@
     color: #2ecc71;
 }
 
+/* NEW: Styles for the placeholder when no testimonials are available */
+.placeholderContainer {
+    background-color: rgba(255, 255, 255, 0.05); /* Lighter background for visibility */
+    padding: 40px;
+    border-radius: 12px;
+    border: 2px dashed rgba(255, 255, 255, 0.3); /* Dashed border to indicate empty state */
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+.placeholderText {
+    font-size: 1.2em;
+    font-style: italic;
+    color: #a0a0a0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .carouselContainer {
@@ -115,6 +131,9 @@
         border-radius: 5px;
         height: auto;
         padding: 10px 20px;
+    }
+    .placeholderContainer {
+        padding: 20px;
     }
 }
 

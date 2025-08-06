@@ -1,5 +1,7 @@
+// src/usePublicWebsiteContent.js
+
 import { useState, useEffect } from 'react';
-import { doc, getDoc, onSnapshot, collection, query, where, limit, getDocs } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
 import MarketingContentModel from '../Models/MarketingContentModel';
 import FeedbackRepository from '../repositories/FeedbackRepository';
@@ -14,6 +16,10 @@ const PUBLIC_DEFAULT_CONTENT = {
     heroTitle: "Welcome to DiaBeater - Manage Your Diabetes Easily!",
     heroSubtitle: "Empowering you with tools for better health management.",
     heroCtaText: "Start Your Journey",
+    
+    marketingVideoTitle: "Our Story",
+    youtubeVideoLink: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+
     featuresSectionTitle: "Key Features",
     feature1Title: "Personalized Meal Plans",
     feature1Description: "Get meal plans tailored to your dietary needs and health goals.",
@@ -63,52 +69,40 @@ function usePublicWebsiteContent() {
 
     useEffect(() => {
         const marketingDocRef = doc(db, "marketingWebsite", "currentContent");
-        let isMounted = true;
 
-        const fetchAllContent = async () => {
-            setLoading(true);
+        const unsubscribe = onSnapshot(marketingDocRef, async (docSnap) => {
             try {
-                const docSnap = await getDoc(marketingDocRef);
-                let fetchedMarketingContent = PUBLIC_DEFAULT_CONTENT;
+                let fetchedMarketingContent = docSnap.exists()
+                    ? new MarketingContentModel(docSnap.data())
+                    : PUBLIC_DEFAULT_CONTENT;
 
-                if (docSnap.exists()) {
-                    fetchedMarketingContent = new MarketingContentModel(docSnap.data());
-                } else {
-                    console.warn("Public marketing content document not found. Using default fallback.");
-                }
-
+                // Fetch testimonials separately
                 const fetchedTestimonials = await FeedbackRepository.getFeaturedMarketingFeedbacks();
                 console.log("Fetched testimonials:", fetchedTestimonials);
 
-                if (isMounted) {
-                    const combinedContent = {
-                        ...fetchedMarketingContent,
-                        testimonials: fetchedTestimonials,
-                    };
-                    setContent(combinedContent);
-                    setError(null);
-                }
+                const combinedContent = {
+                    ...fetchedMarketingContent,
+                    testimonials: fetchedTestimonials,
+                };
+                setContent(combinedContent);
+                setError(null);
             } catch (err) {
                 console.error("Error fetching public website content:", err);
-                if (isMounted) {
-                    setError("Failed to load website content. Please try again.");
-                    setContent({
-                        ...PUBLIC_DEFAULT_CONTENT,
-                        testimonials: [],
-                    });
-                }
+                setError("Failed to load website content. Please try again.");
+                setContent({
+                    ...PUBLIC_DEFAULT_CONTENT,
+                    testimonials: [],
+                });
             } finally {
-                if (isMounted) {
-                    setLoading(false);
-                }
+                setLoading(false);
             }
-        };
+        }, (err) => {
+            console.error("Error with Firestore snapshot listener:", err);
+            setError("Failed to stream real-time updates. Check your connection.");
+            setLoading(false);
+        });
 
-        fetchAllContent();
-
-        return () => {
-            isMounted = false;
-        };
+        return () => unsubscribe();
     }, []);
 
     return { content, loading, error };

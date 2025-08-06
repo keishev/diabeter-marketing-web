@@ -1,11 +1,10 @@
-// marketing-website-react-app/src/repositories/FeedbackRepository.js
-// Make sure to create the 'repositories' folder or adjust this path
-import feedbackServiceInstance from '../services/FeedbackService'; // Changed import name to reflect it's an instance
+// src/repositories/FeedbackRepository.js
+import feedbackServiceInstance from '../services/FeedbackService'; 
 
 class FeedbackRepository {
     async getFeaturedMarketingFeedbacks() {
-        // Call the method directly on the imported instance
-        return feedbackServiceInstance.getMarketingFeedbacks();
+        // Corrected method name to match the service file
+        return feedbackServiceInstance.getPublicFeaturedMarketingFeedbacks();
     }
 }
 

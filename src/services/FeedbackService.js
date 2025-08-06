@@ -1,4 +1,5 @@
-import { collection, getDocs, query, where, limit } from "firebase/firestore";
+// src/services/FeedbackService.js
+import { collection, getDocs, updateDoc, doc, query, where, limit } from "firebase/firestore";
 import { db } from "../firebase";
 
 class FeedbackService {
@@ -6,26 +7,42 @@ class FeedbackService {
         this.feedbackCollectionRef = collection(db, "feedbacks");
     }
 
-    async getInboxFeedbacksForAdmin() {
+    async getFeedbacks() {
         try {
-            const q = query(
-                this.feedbackCollectionRef,
-                where("displayOnMarketing", "==", false),
-                where("rating", "==", 5),
-                where("status", "==", "Inbox"),
-                limit(3)
-            );
-            const querySnapshot = await getDocs(q);
+            const querySnapshot = await getDocs(this.feedbackCollectionRef);
             return querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             }));
         } catch (error) {
-            console.error("Error fetching inbox marketing feedbacks:", error);
+            console.error("Error fetching all feedbacks:", error);
             throw error;
         }
     }
 
+    async updateFeedbackStatus(feedbackId, newStatus) {
+        try {
+            const feedbackDocRef = doc(db, "feedbacks", feedbackId);
+            await updateDoc(feedbackDocRef, { status: newStatus });
+            return true;
+        } catch (error) {
+            console.error(`Error updating feedback status for ${feedbackId}:`, error);
+            throw error;
+        }
+    }
+
+    async updateDisplayOnMarketing(feedbackId, displayStatus) {
+        try {
+            const feedbackDocRef = doc(db, "feedbacks", feedbackId);
+            await updateDoc(feedbackDocRef, { displayOnMarketing: displayStatus });
+            return true;
+        } catch (error) {
+            console.error(`Error updating displayOnMarketing for ${feedbackId}:`, error);
+            throw error;
+        }
+    }
+
+    // This method is for the public marketing website
     async getPublicFeaturedMarketingFeedbacks() {
         try {
             const q = query(

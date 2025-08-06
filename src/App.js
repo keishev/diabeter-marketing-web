@@ -1,7 +1,7 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import usePublicWebsiteContent from './hooks/usePublicWebsiteContent';
+// Removed the redundant import: useMarketingFeedbacks
 import Header from './components/Header';
 import Features from './components/Features';
 import Nutritionists from './components/Nutritionists';
@@ -12,12 +12,17 @@ import Footer from './components/Footer';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
 import DownloadCTA from './components/DownloadCTA';
+import MarketingVideo from './components/MarketingVideo'; 
 
 import './App.css';
 
 // A component to render all the content for the marketing homepage
 const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
     <>
+        <MarketingVideo
+            title={marketingContent.marketingVideoTitle}
+            videoUrl={marketingContent.youtubeVideoLink} 
+        />
         <Features
             sectionTitle={marketingContent.featuresSectionTitle}
             feature1={{ title: marketingContent.feature1Title, description: marketingContent.feature1Description }}
@@ -40,7 +45,7 @@ const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
         />
         <Testimonials
             sectionTitle={marketingContent.testimonialsSectionTitle}
-            testimonials={testimonialsForComponent}
+            testimonials={testimonialsForComponent} // Use the fetched testimonials here
         />
         <FeaturesComparison
             title={marketingContent.featuresComparisonTitle}
@@ -60,6 +65,7 @@ const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
 );
 
 function App() {
+    // Fetch all public content, which now includes testimonials
     const { content, loading, error } = usePublicWebsiteContent();
 
     if (loading) {
@@ -80,16 +86,6 @@ function App() {
         );
     }
 
-    const marketingContent = content;
-    const testimonialsForComponent = Array.isArray(marketingContent.testimonials)
-        ? marketingContent.testimonials.map(fb => ({
-              id: fb.id,
-              text: fb.message,
-              author: fb.userFirstName,
-              rating: fb.rating
-          }))
-        : [];
-
     return (
         <Router>
             <div className="App">
@@ -97,72 +93,72 @@ function App() {
                     <Route path="/" element={
                         <>
                             <Header
-                                logoText={marketingContent.headerLogoText}
-                                navHome={marketingContent.headerNavHome}
-                                navFeatures={marketingContent.headerNavFeatures}
-                                navAbout={marketingContent.headerNavAbout}
-                                navContact={marketingContent.headerNavContact}
-                                ctaButton={marketingContent.headerCtaButton}
-                                heroTitle={marketingContent.heroTitle}
-                                heroSubtitle={marketingContent.heroSubtitle}
-                                heroCtaText={marketingContent.heroCtaText}
+                                logoText={content.headerLogoText}
+                                navHome={content.headerNavHome}
+                                navFeatures={content.headerNavFeatures}
+                                navAbout={content.headerNavAbout}
+                                navContact={content.headerNavContact}
+                                ctaButton={content.headerCtaButton}
+                                heroTitle={content.heroTitle}
+                                heroSubtitle={content.heroSubtitle}
+                                heroCtaText={content.heroCtaText}
                             />
                             <HomeContent
-                                marketingContent={marketingContent}
-                                testimonialsForComponent={testimonialsForComponent}
+                                marketingContent={content}
+                                testimonialsForComponent={content.testimonials} // Use testimonials from the 'content' object
                             />
                             <Footer
-                                aboutText={marketingContent.footerAboutText}
-                                contactEmail={marketingContent.footerContactEmail}
-                                contactPhone={marketingContent.footerContactPhone}
-                                address={marketingContent.footerAddress}
-                                copyright={marketingContent.footerCopyright}
-                                privacyPolicy={marketingContent.footerPrivacyPolicy}
-                                termsOfService={marketingContent.footerTermsOfService}
+                                aboutText={content.footerAboutText}
+                                contactEmail={content.footerContactEmail}
+                                contactPhone={content.footerContactPhone}
+                                address={content.footerAddress}
+                                copyright={content.footerCopyright}
+                                privacyPolicy={content.footerPrivacyPolicy}
+                                termsOfService={content.footerTermsOfService}
                             />
                         </>
                     } />
                     <Route path="/signup" element={
                         <>
                             <Header
-                                logoText={marketingContent.headerLogoText}
-                                navHome={marketingContent.headerNavHome}
-                                navFeatures={marketingContent.headerNavFeatures}
-                                navAbout={marketingContent.headerNavAbout}
-                                navContact={marketingContent.headerNavContact}
-                                ctaButton={marketingContent.headerCtaButton}
+                                logoText={content.headerLogoText}
+                                navHome={content.headerNavHome}
+                                navFeatures={content.headerNavFeatures}
+                                navAbout={content.headerNavAbout}
+                                navContact={content.headerNavContact}
+                                ctaButton={content.headerCtaButton}
                             />
                             <SignUpForm />
                             <Footer
-                                aboutText={marketingContent.footerAboutText}
-                                contactEmail={marketingContent.footerContactEmail}
-                                contactPhone={marketingContent.footerContactPhone}
-                                address={marketingContent.footerAddress}
-                                copyright={marketingContent.footerCopyright}
-                                privacyPolicy={marketingContent.footerPrivacyPolicy}
-                                termsOfService={marketingContent.footerTermsOfService}
+                                aboutText={content.footerAboutText}
+                                contactEmail={content.footerContactEmail}
+                                contactPhone={content.footerContactPhone}
+                                address={content.footerAddress}
+                                copyright={content.footerCopyright}
+                                privacyPolicy={content.footerPrivacyPolicy}
+                                termsOfService={content.footerTermsOfService}
                             />
                         </>
                     } />
                     <Route path="/login" element={
                         <>
-                             <Header
-                                logoText={marketingContent.headerLogoText}
-                                navHome={marketingContent.headerNavHome}
-                                navFeatures={marketingContent.headerNavFeatures}
-                                navAbout={marketingContent.headerNavAbout}
-                                navContact={marketingContent.headerNavContact}
-                                ctaButton={marketingContent.headerCtaButton}
+                            <Header
+                                logoText={content.headerLogoText}
+                                navHome={content.headerNavHome}
+                                navFeatures={content.headerNavFeatures}
+                                navAbout={content.headerNavAbout}
+                                navContact={content.footerContactEmail}
+                                ctaButton={content.headerCtaButton}
                             />
                             <LoginForm />
                             <Footer
-                                aboutText={marketingContent.footerAboutText}
-                                contactEmail={marketingContent.footerContactEmail}
-                                contactPhone={marketingContent.footerContactPhone}
-                                address={marketingContent.footerAddress}
-                                copyright={marketingContent.footerCopyright}
-                                privacyPolicy={marketingContent.footerPrivacyPolicy}
-                                termsOfService={marketingContent.footerTermsOfService}
+                                aboutText={content.footerAboutText}
+                                contactEmail={content.footerContactEmail}
+                                contactPhone={content.footerContactPhone}
+                                address={content.footerAddress}
+                                copyright={content.footerCopyright}
+                                privacyPolicy={content.footerPrivacyPolicy}
+                                termsOfService={content.footerTermsOfService}
                             />
                         </>
                     } />
