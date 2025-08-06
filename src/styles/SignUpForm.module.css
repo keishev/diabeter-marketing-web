@@ -1,160 +1,188 @@
 /* src/styles/SignUpForm.module.css */
 
 .pageBackground {
-     min-height: calc(100vh - 100px); /* Adjust based on header/footer height */
-     background-color: #fffaf3;
+    min-height: calc(100vh - 100px);
+    background-color: #fffaf3;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 .formContainer {
-  max-width: 600px; /* Adjusted: Make the overall container smaller */
-  margin: 80px auto;
-  padding: 40px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  font-family: 'Arial', sans-serif;
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
 }
 
 .formContainer h2 {
-  font-size: 2.2em;
-  color: #1e525c;
-  margin-bottom: 30px;
-  margin-top: 20px;
+    font-size: 2.2em;
+    color: #1e525c;
+    margin-bottom: 30px;
+    margin-top: 20px;
 }
 
 /* NEW: Styles for the grid of inputs */
+/* Modified to create a 2-column grid and handle the email field */
 .gridInputs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
-  gap: 20px; /* Space between grid items (inputs) */
-  margin-bottom: 20px; /* Space below the grid inputs before next section */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
 }
+
+/* New class to make an item span the full width of the grid */
+.fullWidth {
+    grid-column: 1 / -1; /* Spans from the first to the last column line */
+}
+
+/* New grid for the password fields */
+.passwordGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
 
 .formGroup {
-  /* No change needed here, as it's a direct child of gridInputs or the form */
-  /* margin-bottom: 20px; -- REMOVE if it's applied here, as gap will handle spacing within grid */
-  margin-bottom: 0; /* Important: reset margin for items within the grid */
-  text-align: left;
+    margin-bottom: 0;
+    text-align: left;
 }
-
-/* Only apply bottom margin to form groups that are NOT in the gridInputs, or add it specifically */
-.formGroup:last-of-type { /* This targets the last form group, often the OTP */
-    margin-bottom: 20px; /* Add margin for the last few fields */
-}
-
 
 .formGroup label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-  color: #1e525c;
-  font-size: 0.95em;
-  margin-top: 5px;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #1e525c;
+    font-size: 0.95em;
+    margin-top: 5px;
 }
 
 .formGroup input[type="text"],
 .formGroup input[type="email"],
-.formGroup input[type="date"],
 .formGroup input[type="password"] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1em;
-  box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
 }
 
 .formGroup input:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
 }
 
 .inputError {
-  border-color: #e74c3c !important;
+    border-color: #e74c3c !important;
 }
 
 .errorText {
-  color: #e74c3c;
-  font-size: 0.85em;
-  margin-top: 5px;
-  display: block;
+    color: #e74c3c;
+    font-size: 0.85em;
+    margin-top: 5px;
+    display: block;
+}
+
+.passwordInputContainer {
+    position: relative;
+    width: 100%;
+}
+
+.passwordInputContainer input {
+    padding-right: 40px; 
+}
+
+.passwordToggle {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+}
+
+.passwordToggle:hover {
+    color: #555;
 }
 
 .ctaButton {
-  background-color: #f79554;
-  color: white;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1em;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  width: 100%;
-  margin-top: 20px;
+    background-color: #f79554;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .ctaButton:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
+    background-color: #2980b9;
+    transform: translateY(-2px);
 }
 
 .loginPrompt {
-  margin-top: 25px;
-  font-size: 0.95em;
-  color: #666;
+    margin-top: 25px;
+    font-size: 0.95em;
+    color: #666;
 }
 
 .linkButton {
-  background: none;
-  border: none;
-  color: #3498db;
-  text-decoration: underline;
-  cursor: pointer;
-  font-size: 1em;
-  padding: 0;
-  margin-left: 5px;
+    background: none;
+    border: none;
+    color: #3498db;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 0;
+    margin-left: 5px;
 }
 
 .linkButton:hover {
-  color: #2980b9;
+    color: #2980b9;
 }
 
 .successMessage {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  text-align: center;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .successMessage h2 {
-  color: #155724;
-  font-size: 1.8em;
-  margin-bottom: 15px;
+    color: #155724;
+    font-size: 1.8em;
+    margin-bottom: 15px;
 }
 
 .successMessage p {
-  font-size: 1em;
-  margin-bottom: 20px;
+    font-size: 1em;
+    margin-bottom: 20px;
 }
 
 /* Responsive adjustments for the grid */
 @media (max-width: 600px) {
-  .formContainer {
-    margin: 40px 20px;
-    padding: 30px 20px;
-  }
-  .formContainer h2 {
-    font-size: 1.8em;
-  }
-  .gridInputs {
-    grid-template-columns: 1fr; /* Stack inputs vertically on small screens */
-  }
+    .formContainer {
+        margin: 40px 20px;
+        padding: 30px 20px;
+    }
+    .formContainer h2 {
+        font-size: 1.8em;
+    }
+    .gridInputs, .passwordGrid {
+        grid-template-columns: 1fr; /* Stack inputs vertically on small screens */
+    }
 }

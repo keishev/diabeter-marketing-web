@@ -1,9 +1,8 @@
-// src/components/Header.js (in your PUBLIC marketing website project)
+// src/components/Header.js
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../styles/Header.module.css'; // Using CSS Modules
+import styles from '../styles/Header.module.css';
 
-// Accept all the content props that App.js is sending
 const Header = ({
     logoText,
     navHome,
@@ -11,7 +10,7 @@ const Header = ({
     navAbout,
     navContact,
     ctaButton,
-    heroTitle,
+    heroTitle, // These hero props are now optional
     heroSubtitle,
     heroCtaText
 }) => {
@@ -19,7 +18,7 @@ const Header = ({
 
     const handleDownloadNowClick = (e) => {
         e.preventDefault();
-        navigate('/signup'); // Redirect to the sign-up page
+        navigate('/signup');
     };
 
     return (
@@ -27,26 +26,28 @@ const Header = ({
             <nav className={styles.nav}>
                 <div className={styles.logo}>
                     <Link to="/" className={styles.logoLink}>
-                        <img src="/images/placeholder-logo.png" alt={`${logoText} Logo`} /> {/* Use logoText for alt */}
-                        <span>{logoText}</span> {/* Use dynamic logoText */}
+                        <img src="/images/placeholder-logo.png" alt={`${logoText} Logo`} />
+                        <span>{logoText}</span>
                     </Link>
                 </div>
                 <ul className={styles.navList}>
-                    {/* Use dynamic nav items. Note: hrefs for sections are still hardcoded IDs. */}
-                    <li><a href="#features">{navFeatures}</a></li>
-                    <li><a href="#testimonials">{navContact}</a></li> {/* This might be a typo in your original, typically navContact is not a section link */}
-                    <li><a href="#nutritionists">{navAbout}</a></li> {/* This might be a typo in your original */}
-                    <li><a href="#gamification">{navHome}</a></li> {/* This might be a typo in your original */}
-                    <li><a href="#features-comparison">{navContact}</a></li> {/* This might be a typo in your original */}
-                    <li><Link to="/signup">{ctaButton}</Link></li> {/* Use ctaButton for the "Download App" style button */}
+                    <li><a href="/#features">{navFeatures}</a></li>
+                    <li><a href="/#testimonials">{navContact}</a></li>
+                    <li><a href="/#nutritionists">{navAbout}</a></li>
+                    <li><a href="/#gamification">{navHome}</a></li>
+                    <li><a href="/#features-comparison">{navContact}</a></li>
+                    <li><Link to="/signup">{ctaButton}</Link></li>
                 </ul>
             </nav>
-            <div className={styles.hero}>
-                <h1>{heroTitle}</h1> {/* Use dynamic heroTitle */}
-                <img src="/images/placeholder-app-screenshot.png" alt="Diabeter App Screenshot" className={styles.heroImage} />
-                <p>{heroSubtitle}</p> {/* Use dynamic heroSubtitle */}
-                <button onClick={handleDownloadNowClick} className="button-primary">{heroCtaText}</button> {/* Use dynamic heroCtaText */}
-            </div>
+            {/* Conditionally render the hero section */}
+            {heroTitle && (
+                <div className={styles.hero}>
+                    <h1>{heroTitle}</h1>
+                    <img src="/images/placeholder-app-screenshot.png" alt="Diabeter App Screenshot" className={styles.heroImage} />
+                    <p>{heroSubtitle}</p>
+                    <button onClick={handleDownloadNowClick} className="button-primary">{heroCtaText}</button>
+                </div>
+            )}
         </header>
     );
 };
