@@ -1,7 +1,33 @@
+/* src/styles/Header.module.css */
+
 .header {
-    background-color: #fffaf3;
+    background: #fffbf6;
     padding: 20px 0;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated background particles */
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(30, 82, 92, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(247, 149, 84, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(30, 82, 92, 0.02) 0%, transparent 50%);
+ 
+    z-index: 1;
+}
+
+@keyframes floatParticles {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-10px) rotate(1deg); }
+    66% { transform: translateY(-5px) rotate(-1deg); }
 }
 
 .nav {
@@ -12,6 +38,14 @@
     margin: 0 auto;
     padding: 0 20px;
     margin-right: 40px;
+    position: relative;
+    z-index: 10;
+    animation: slideInFromTop 0.8s ease-out;
+}
+
+@keyframes slideInFromTop {
+    0% { transform: translateY(-50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
 .logo {
@@ -19,19 +53,53 @@
     align-items: center;
     font-size: 1.8em;
     font-weight: bold;
-    color: #1e525c; /* Diabeter green */
+    color: #1e525c;
     margin-left: -370px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.logoLink {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #1e525c, #f79554);
+    transition: width 0.4s ease;
+}
+
+.logo:hover::after {
+    width: 100%;
 }
 
 .logo img {
-  height: 55px; /* Adjust logo size */
-  width: auto;
-  margin-right: 10px;
-  /* Add these lines for vertical adjustment without affecting layout */
-  transform: translateY(15px); /* Example: Moves the image down by 5px relative to its current position */
-  /* transform: translateY(-5px); for moving it up */
+    height: 55px;
+    width: auto;
+    margin-right: 10px;
+    margin-bottom: 20px;;
+    transform: translateY(15px);
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
+.logo:hover img {
+    transform: translateY(15px) rotate(5deg) scale(1.1);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
 
 .navList {
     list-style: none;
@@ -42,16 +110,55 @@
 
 .navList li {
     margin-left: 25px;
+    animation: fadeInUp 0.6s ease-out forwards;
+    animation-delay: calc(var(--item-index) * 0.1s);
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.navList li:nth-child(1) { --item-index: 1; }
+.navList li:nth-child(2) { --item-index: 2; }
+.navList li:nth-child(3) { --item-index: 3; }
+.navList li:nth-child(4) { --item-index: 4; }
+.navList li:nth-child(5) { --item-index: 5; }
+.navList li:nth-child(6) { --item-index: 6; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .navList li a {
     color: #1e525c;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    padding: 8px 16px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.navList li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: left 0.5s ease;
+}
+
+.navList li a:hover::before {
+    left: 100%;
 }
 
 .navList li a:hover {
     color: #f79554;
+    transform: translateY(-2px);
+    background: rgba(247, 149, 84, 0.05);
+    box-shadow: 0 4px 15px rgba(247, 149, 84, 0.2);
 }
 
 .hero {
@@ -60,6 +167,8 @@
     max-width: 600px;
     margin: 0 auto;
     height: 60vh;
+    position: relative;
+    z-index: 5;
 }
 
 .hero h1 {
@@ -67,27 +176,64 @@
     color: #2c3e50;
     margin-bottom: 20px;
     margin-left: -400px;
-    background: linear-gradient(to right, #1e525c, #f79554); /* Example: green to blue */
-    /* You can adjust the colors and direction here */
-    /* background: linear-gradient(to right, #ff7e5f, #feb47b); Example: warm orange gradient */
-    /* background: linear-gradient(to right, #ee9ca7, #ffdde1); Example: soft pink gradient */
-
-
-    -webkit-background-clip: text; /* For Safari/Chrome */
+    background: linear-gradient(45deg, #1e525c, #f79554, #1e525c, #f79554);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent; /* For Safari/Chrome */
-    color: transparent; /* Standard for other browsers */
-
-    /* Optional: Ensure font weight is appropriate for gradient visibility */
-    font-weight: 700; /* Make it bold so the gradient is more visible */
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: 700;
     line-height: 70px;
+    animation: gradientShift 4s ease-in-out infinite, textGlow 2s ease-in-out infinite alternate;
+    position: relative;
 }
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes textGlow {
+    0% { filter: drop-shadow(0 0 5px rgba(30, 82, 92, 0.3)); }
+    100% { filter: drop-shadow(0 0 20px rgba(247, 149, 84, 0.4)); }
+}
+
+.hero h1::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.3) 50%, transparent 52%);
+    animation: shimmer 3s infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
 .hero p {
     font-size: 1.2em;
     color: #666;
     margin-bottom: 30px;
     margin-left: -400px;
     margin-top: -250px;
+    animation: fadeInLeft 1s ease-out 0.5s both;
+    position: relative;
+}
+
+@keyframes fadeInLeft {
+    0% { 
+        opacity: 0; 
+        transform: translateX(-30px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
 }
 
 .heroImage {
@@ -97,13 +243,75 @@
     border-radius: 10px;
     margin-left: 600px;
     margin-top: -250px;
+    animation: floatImage 6s ease-in-out infinite, slideInRight 1s ease-out;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
+@keyframes floatImage {
+    0%, 100% { transform: translateY(0px) rotateY(0deg); }
+    33% { transform: translateY(-15px) rotateY(2deg); }
+    66% { transform: translateY(-8px) rotateY(-1deg); }
+}
+
+@keyframes slideInRight {
+    0% { 
+        opacity: 0; 
+        transform: translateX(50px) scale(0.9); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateX(0) scale(1); 
+    }
+}
+
+
+
+/* CTA Button Animation */
+.buttonPrimary {
+    background: linear-gradient(45deg, #1e525c, #f79554);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-left: -400px;
+    margin-top: 20px;
+    animation: fadeInUp 1s ease-out 1s both;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.buttonPrimary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.buttonPrimary:hover::before {
+    left: 100%;
+}
+
+.buttonPrimary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(30, 82, 92, 0.3);
+}
 
 /* Responsive */
 @media (max-width: 768px) {
     .nav {
         flex-direction: column;
+        animation-delay: 0.2s;
     }
 
     .navList {
@@ -118,10 +326,31 @@
 
     .hero h1 {
         font-size: 2.5em;
+        margin-left: 0;
+        text-align: center;
     }
 
     .hero p {
         font-size: 1em;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .heroImage {
+        margin-left: 0;
+        display: block;
+        margin: 20px auto;
+    }
+
+    .buttonPrimary {
+        margin-left: 0;
+        display: block;
+        margin: 20px auto;
+    }
+
+    .logo {
+        margin-left: 0;
+        font-size: 1.5em;
     }
 }
 

@@ -45,7 +45,7 @@ const Header = ({
                     <h1>{heroTitle}</h1>
                     <img src="/images/placeholder-app-screenshot.png" alt="Diabeter App Screenshot" className={styles.heroImage} />
                     <p>{heroSubtitle}</p>
-                    <button onClick={handleDownloadNowClick} className="button-primary">{heroCtaText}</button>
+                    <button onClick={handleDownloadNowClick} className={styles.buttonPrimary}>{heroCtaText}</button>
                 </div>
             )}
         </header>

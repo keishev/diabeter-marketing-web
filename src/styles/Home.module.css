@@ -1,26 +1,129 @@
 /* src/styles/Home.module.css */
 
 .videoSection {
-  text-align: center;
-  padding: 40px 20px;
-  width: 100%;
-  background-color: #f9f9f9;
+    text-align: center;
+    padding: 40px 20px;
+    width: 100%;
+    background: linear-gradient(180deg, #fffbf6 15%, #fffaf3 50%, #fffaf3 100%);
+    position: relative;
+    overflow: hidden;
 }
 
+.videoSection::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(30, 82, 92, 0.02) 0%, transparent 70%);
+    z-index: 1;
+}
+
+
 .videoSection h2 {
-  font-size: 2em;
-  color: #1e525c;
-  margin-bottom: 20px;
+    font-size: 2em;
+    color: #1e525c;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+@keyframes fadeInDown {
+    0% { 
+        opacity: 0; 
+        transform: translateY(-30px); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
 .videoContainer {
-  width: 100%;
-  height: 550px; /* Set a fixed height for the video container */
-  /* Remove padding-top */
+    width: 100%;
+    height: 550px;
+    position: relative;
+    z-index: 2;
+    animation: scaleIn 0.8s ease-out 0.3s both;
+}
+
+@keyframes scaleIn {
+    0% { 
+        opacity: 0; 
+        transform: scale(0.8); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
 }
 
 .responsiveIframe {
-  width: 1000px;
-  height: 500px; /* Set a fixed height */
+    width: 1000px;
+    height: 500px;
     position: relative;
-  border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: none;
+    margin: 0 auto;
+    display: block;
+}
+
+.responsiveIframe:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.responsiveIframe::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 48%, rgba(255, 255, 255, 0.1) 50%, transparent 52%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+}
+
+.responsiveIframe:hover::after {
+    transform: translateX(100%);
+}
+
+/* Responsive adjustments for video section */
+@media (max-width: 1100px) {
+    .responsiveIframe {
+        width: 90%;
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 768px) {
+    .responsiveIframe {
+        width: 100%;
+        height: 300px;
+    }
+    
+    .videoContainer {
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .responsiveIframe {
+        height: 250px;
+    }
+    
+    .videoContainer {
+        height: 300px;
+    }
+    
+    .videoSection h2 {
+        font-size: 1.5em;
+    }
+}

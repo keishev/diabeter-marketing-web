@@ -1,8 +1,33 @@
 // src/components/MarketingVideo.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 
 const MarketingVideo = ({ title, videoUrl }) => {
+    useEffect(() => {
+        // Add hover effects to video iframe
+        const iframe = document.querySelector(`.${styles.responsiveIframe}`);
+        if (iframe) {
+            const handleMouseEnter = function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.15)';
+            };
+
+            const handleMouseLeave = function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+            };
+
+            iframe.addEventListener('mouseenter', handleMouseEnter);
+            iframe.addEventListener('mouseleave', handleMouseLeave);
+
+            // Cleanup
+            return () => {
+                iframe.removeEventListener('mouseenter', handleMouseEnter);
+                iframe.removeEventListener('mouseleave', handleMouseLeave);
+            };
+        }
+    }, []);
+
     if (!videoUrl || typeof videoUrl !== 'string') {
         return null; 
     }
