@@ -38,6 +38,7 @@ const PUBLIC_DEFAULT_CONTENT = {
     nutritionist2Bio: "A registered dietitian.",
     nutritionist3Name: "Sophia Chen, MPH",
     nutritionist3Bio: "Focuses on preventative care.",
+    joinUsLink: "https://diabeaters-4cf9e.web.app/",
     gamificationSectionTitle: "Stay Motivated!",
     gamificationDescription: "Earn points, unlock badges, and compete with friends.",
     gamificationFeature1: "Daily Challenges",

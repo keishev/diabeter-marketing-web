@@ -36,6 +36,7 @@ const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
             nutritionist1={{ name: marketingContent.nutritionist1Name, bio: marketingContent.nutritionist1Bio }}
             nutritionist2={{ name: marketingContent.nutritionist2Name, bio: marketingContent.nutritionist2Bio }}
             nutritionist3={{ name: marketingContent.nutritionist3Name, bio: marketingContent.nutritionist3Bio }}
+            joinUsLink={marketingContent.joinUsLink} 
         />
         <Gamification
             sectionTitle={marketingContent.gamificationSectionTitle}
