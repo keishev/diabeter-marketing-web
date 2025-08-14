@@ -30,6 +30,11 @@ const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
             feature2={{ title: marketingContent.feature2Title, description: marketingContent.feature2Description }}
             feature3={{ title: marketingContent.feature3Title, description: marketingContent.feature3Description }}
             feature4={{ title: marketingContent.feature4Title, description: marketingContent.feature4Description }}
+            // Add video props for each feature
+            feature1Video="/videos/feature1.mp4"
+            feature2Video="/videos/feature2.mp4"
+            feature3Video="/videos/feature3.mp4"
+            feature4Video="/videos/feature4.mp4"
         />
         <Nutritionists
             sectionTitle={marketingContent.nutritionistsSectionTitle}

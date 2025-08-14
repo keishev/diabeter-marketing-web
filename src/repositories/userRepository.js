@@ -33,7 +33,7 @@ export const checkUserEmailVerification = async (user) => {
 };
 
 /**
- * Step 4: Complete user registration with additional data
+ * Step 4: Complete user registration with minimal data
  * Only called after email verification is confirmed
  */
 export const completeUserRegistration = async (user, userData) => {
@@ -41,9 +41,6 @@ export const completeUserRegistration = async (user, userData) => {
         const userDocData = {
             uid: user.uid,
             email: user.email,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            dateOfBirth: userData.dateOfBirth,
             createdAt: userData.createdAt || Timestamp.now(),
             emailVerified: true,
             registrationCompleted: true,

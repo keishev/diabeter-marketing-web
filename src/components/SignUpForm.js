@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../styles/SignUpForm.module.css';
 import useSignUpViewModel from '../viewmodels/signUpViewModel';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { triggerAutoDownload } from '../utils/downloadUtils';
 
 const SignUpForm = () => {
     const navigate = useNavigate();
@@ -15,7 +14,6 @@ const SignUpForm = () => {
         handleChange,
         handleSignUp,
         checkVerificationStatus,
-        handleDateChange,
     } = useSignUpViewModel();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -83,94 +81,55 @@ const SignUpForm = () => {
             <div className={styles.formContainer}>
                 <h2>Sign Up for Diabeater</h2>
                 <form onSubmit={(e) => { e.preventDefault(); handleSignUp(); }} className={styles.form}>
-                    <div className={styles.gridInputs}>
-                        <div className={styles.formGroup}>
-                            <label htmlFor="firstName">First Name</label>
-                            <input 
-                                type="text" 
-                                id="firstName" 
-                                name="firstName" 
-                                value={formData.firstName} 
-                                onChange={handleChange} 
-                                className={formErrors.firstName ? styles.inputError : ''} 
-                            />
-                            {formErrors.firstName && <span className={styles.errorText}>{formErrors.firstName}</span>}
-                        </div>
-                        <div className={styles.formGroup}>
-                            <label htmlFor="lastName">Last Name</label>
-                            <input 
-                                type="text" 
-                                id="lastName" 
-                                name="lastName" 
-                                value={formData.lastName} 
-                                onChange={handleChange} 
-                                className={formErrors.lastName ? styles.inputError : ''} 
-                            />
-                            {formErrors.lastName && <span className={styles.errorText}>{formErrors.lastName}</span>}
-                        </div>
-                        <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-                            <label htmlFor="email">Email</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                value={formData.email} 
-                                onChange={handleChange} 
-                                className={formErrors.email ? styles.inputError : ''} 
-                            />
-                            {formErrors.email && <span className={styles.errorText}>{formErrors.email}</span>}
-                        </div>
-                        <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-                            <label htmlFor="dateOfBirth">Date of Birth</label>
-                            <input 
-                                type="date" 
-                                id="dateOfBirth" 
-                                name="dateOfBirth" 
-                                value={formData.dateOfBirth} 
-                                onChange={handleDateChange} 
-                                className={formErrors.dateOfBirth ? styles.inputError : ''} 
-                                max={new Date().toISOString().split('T')[0]} // Prevent future dates
-                            />
-                            {formErrors.dateOfBirth && <span className={styles.errorText}>{formErrors.dateOfBirth}</span>}
-                        </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="email">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            value={formData.email} 
+                            onChange={handleChange} 
+                            className={formErrors.email ? styles.inputError : ''} 
+                        />
+                        {formErrors.email && <span className={styles.errorText}>{formErrors.email}</span>}
                     </div>
-                    {/* New container for passwords to manage their side-by-side layout */}
-                    <div className={styles.passwordGrid}>
-                        <div className={styles.formGroup}>
-                            <label htmlFor="password" className={styles.passwordLabel}>Password</label>
-                            <div className={styles.passwordInputContainer}>
-                                <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    className={formErrors.password ? styles.inputError : ''}
-                                />
-                                <span className={styles.passwordToggle} onClick={togglePasswordVisibility}>
-                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                </span>
-                            </div>
-                            {formErrors.password && <span className={styles.errorText}>{formErrors.password}</span>}
+
+                    <div className={styles.formGroup}>
+                        <label htmlFor="password" className={styles.passwordLabel}>Password</label>
+                        <div className={styles.passwordInputContainer}>
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                className={formErrors.password ? styles.inputError : ''}
+                            />
+                            <span className={styles.passwordToggle} onClick={togglePasswordVisibility}>
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
                         </div>
-                        <div className={styles.formGroup}>
-                            <label htmlFor="confirmPassword">Confirm Password</label>
-                            <div className={styles.passwordInputContainer}>
-                                <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    id="confirmPassword"
-                                    name="confirmPassword"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
-                                    className={formErrors.confirmPassword ? styles.inputError : ''}
-                                />
-                                <span className={styles.passwordToggle} onClick={togglePasswordVisibility}>
-                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                </span>
-                            </div>
-                            {formErrors.confirmPassword && <span className={styles.errorText}>{formErrors.confirmPassword}</span>}
-                        </div>
+                        {formErrors.password && <span className={styles.errorText}>{formErrors.password}</span>}
                     </div>
+
+                    <div className={styles.formGroup}>
+                        <label htmlFor="confirmPassword">Confirm Password</label>
+                        <div className={styles.passwordInputContainer}>
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                className={formErrors.confirmPassword ? styles.inputError : ''}
+                            />
+                            <span className={styles.passwordToggle} onClick={togglePasswordVisibility}>
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
+                        {formErrors.confirmPassword && <span className={styles.errorText}>{formErrors.confirmPassword}</span>}
+                    </div>
+
                     {signUpState.error && <p className={styles.errorText}>{signUpState.error}</p>}
                     <button type="submit" className={styles.ctaButton} disabled={signUpState.isLoading}>
                         {signUpState.isLoading ? 'Signing Up...' : 'Sign Up'}

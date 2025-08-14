@@ -20,9 +20,7 @@ class UserRegistrationViewModel {
         this.userData = {
             email: '',
             password: '',
-            firstName: '',
-            lastName: '',
-            dateOfBirth: null
+            confirmPassword: ''
         };
         this.listeners = [];
     }
@@ -54,12 +52,6 @@ class UserRegistrationViewModel {
         this.notifyListeners();
     }
 
-    // Set date of birth as Firestore timestamp
-    setDateOfBirth(date) {
-        this.userData.dateOfBirth = Timestamp.fromDate(new Date(date));
-        this.notifyListeners();
-    }
-
     // Step 1: Create user account and move to verification step
     async createUserAccount() {
         this.setLoading(true);
@@ -77,7 +69,8 @@ class UserRegistrationViewModel {
             if (result.success) {
                 this.currentUser = result.user;
                 this.registrationState.step = 2;
-                this.setSuccess('Account created! Please send verification email.');
+                // Automatically send verification email
+                await this.sendVerificationEmail();
             } else {
                 this.setError(result.message);
             }
@@ -129,8 +122,8 @@ class UserRegistrationViewModel {
 
             if (result.success) {
                 if (result.isVerified) {
-                    this.registrationState.step = 4;
-                    this.setSuccess('Email verified successfully! You can now complete your registration.');
+                    // Auto-complete registration since we don't need additional user data
+                    await this.completeRegistration();
                 } else {
                     this.setError('Email not verified yet. Please check your email and click the verification link.');
                 }
@@ -151,26 +144,19 @@ class UserRegistrationViewModel {
             return;
         }
 
-        if (!this.validateStep4()) {
-            return;
-        }
-
         this.setLoading(true);
         this.clearMessages();
 
         try {
             const userDataForFirestore = {
-                firstName: this.userData.firstName,
-                lastName: this.userData.lastName,
-                dateOfBirth: this.userData.dateOfBirth,
                 createdAt: Timestamp.now()
             };
 
             const result = await completeUserRegistration(this.currentUser, userDataForFirestore);
 
             if (result.success) {
+                this.registrationState.step = 4;
                 this.setSuccess('Registration completed successfully! Welcome!');
-                // You might want to redirect to dashboard or login page here
                 return true;
             } else {
                 this.setError(result.message);
@@ -186,10 +172,10 @@ class UserRegistrationViewModel {
 
     // Validation methods
     validateStep1() {
-        const { email, password } = this.userData;
+        const { email, password, confirmPassword } = this.userData;
 
-        if (!email || !password) {
-            this.setError('Email and password are required.');
+        if (!email || !password || !confirmPassword) {
+            this.setError('Email, password, and confirm password are required.');
             return false;
         }
 
@@ -203,19 +189,8 @@ class UserRegistrationViewModel {
             return false;
         }
 
-        return true;
-    }
-
-    validateStep4() {
-        const { firstName, lastName, dateOfBirth } = this.userData;
-
-        if (!firstName || !lastName) {
-            this.setError('First name and last name are required.');
-            return false;
-        }
-
-        if (!dateOfBirth) {
-            this.setError('Date of birth is required.');
+        if (password !== confirmPassword) {
+            this.setError('Passwords do not match.');
             return false;
         }
 
@@ -263,9 +238,7 @@ class UserRegistrationViewModel {
         this.userData = {
             email: '',
             password: '',
-            firstName: '',
-            lastName: '',
-            dateOfBirth: null
+            confirmPassword: ''
         };
         this.notifyListeners();
     }
