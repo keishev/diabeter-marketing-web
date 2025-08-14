@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../styles/SignUpForm.module.css';
 import useSignUpViewModel from '../viewmodels/signUpViewModel';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { triggerAutoDownload } from '../utils/downloadUtils';
 
 const SignUpForm = () => {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const SignUpForm = () => {
         handleChange,
         handleSignUp,
         checkVerificationStatus,
+        handleDateChange,
     } = useSignUpViewModel();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -22,9 +24,22 @@ const SignUpForm = () => {
         setShowPassword(!showPassword);
     };
 
-    const handleDownloadRedirect = () => {
-        console.log("Downloading app...");
-        navigate('/');
+    const downloadAPK = () => {
+        // Create a link element and trigger download
+        const link = document.createElement('a');
+        link.href = './assets/Diabeater.apk'; // Update this path to your APK file location
+        link.download = 'Diabeater.apk';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Optional: Show success message
+        alert('APK download started! Please check your downloads folder.');
+        
+        // Redirect to home after download
+        setTimeout(() => {
+            navigate('/');
+        }, 2000);
     };
 
     if (signUpState.isRegistered) {
@@ -34,8 +49,13 @@ const SignUpForm = () => {
                     <div className={styles.formContainer}>
                         <div className={styles.successMessage}>
                             <h2>Verification Successful!</h2>
-                            <p>Your email has been verified. You can now download the app.</p>
-                            <button className={styles.ctaButton} onClick={handleDownloadRedirect}>Download App</button>
+                            <p>Your email has been verified. Your Diabeater app will download automatically!</p>
+                            <button className={styles.ctaButton} onClick={downloadAPK}>
+                                Download App Now
+                            </button>
+                            <p className={styles.downloadNote}>
+                                If the download doesn't start automatically, click the button above.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -61,23 +81,57 @@ const SignUpForm = () => {
     return (
         <div className={styles.pageBackground}>
             <div className={styles.formContainer}>
-                <h2>Sign Up for Diabeter</h2>
+                <h2>Sign Up for Diabeater</h2>
                 <form onSubmit={(e) => { e.preventDefault(); handleSignUp(); }} className={styles.form}>
                     <div className={styles.gridInputs}>
                         <div className={styles.formGroup}>
                             <label htmlFor="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} className={formErrors.firstName ? styles.inputError : ''} />
+                            <input 
+                                type="text" 
+                                id="firstName" 
+                                name="firstName" 
+                                value={formData.firstName} 
+                                onChange={handleChange} 
+                                className={formErrors.firstName ? styles.inputError : ''} 
+                            />
                             {formErrors.firstName && <span className={styles.errorText}>{formErrors.firstName}</span>}
                         </div>
                         <div className={styles.formGroup}>
                             <label htmlFor="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} className={formErrors.lastName ? styles.inputError : ''} />
+                            <input 
+                                type="text" 
+                                id="lastName" 
+                                name="lastName" 
+                                value={formData.lastName} 
+                                onChange={handleChange} 
+                                className={formErrors.lastName ? styles.inputError : ''} 
+                            />
                             {formErrors.lastName && <span className={styles.errorText}>{formErrors.lastName}</span>}
                         </div>
                         <div className={`${styles.formGroup} ${styles.fullWidth}`}>
                             <label htmlFor="email">Email</label>
-                            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className={formErrors.email ? styles.inputError : ''} />
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                value={formData.email} 
+                                onChange={handleChange} 
+                                className={formErrors.email ? styles.inputError : ''} 
+                            />
                             {formErrors.email && <span className={styles.errorText}>{formErrors.email}</span>}
+                        </div>
+                        <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+                            <label htmlFor="dateOfBirth">Date of Birth</label>
+                            <input 
+                                type="date" 
+                                id="dateOfBirth" 
+                                name="dateOfBirth" 
+                                value={formData.dateOfBirth} 
+                                onChange={handleDateChange} 
+                                className={formErrors.dateOfBirth ? styles.inputError : ''} 
+                                max={new Date().toISOString().split('T')[0]} // Prevent future dates
+                            />
+                            {formErrors.dateOfBirth && <span className={styles.errorText}>{formErrors.dateOfBirth}</span>}
                         </div>
                     </div>
                     {/* New container for passwords to manage their side-by-side layout */}

@@ -35,7 +35,7 @@ const MarketingVideo = ({ title, videoUrl }) => {
     const embedUrl = videoUrl.replace("watch?v=", "embed/");
 
     return (
-        <section className={styles.videoSection}>
+        <section id="video" className={styles.videoSection}>
             <h2>{title}</h2>
             <div className={styles.videoContainer}>
                 <iframe

@@ -1,17 +1,135 @@
+/* src/styles/DownloadCTA.module.css */
+
+.downloadSection {
+    background: linear-gradient(135deg, #1e525c 0%, #2a6b77 100%);
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.downloadSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 30% 30%, rgba(247, 149, 84, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(255, 250, 243, 0.05) 0%, transparent 50%);
+    z-index: 1;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.downloadTitle {
+    font-size: 3.2em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: white;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.downloadSubtitle {
+    font-size: 1.3em;
+    margin-bottom: 50px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
 .appStores {
-    margin-top: 40px;
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-left: 90px;
+    gap: 30px;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.appStoreButton {
+    transition: all 0.3s ease;
+    display: inline-block;
+    border-radius: 15px;
+    overflow: hidden;
+    
+}
+
+.appStoreButton:hover {
+    transform: translateY(-5px) scale(1.05);
 }
 
 .appStoreButton img {
-    height: 60px; /* Adjust size of app store badges */
+    height: 70px;
+    width: auto;
+    transition: all 0.3s ease;
+    filter: brightness(1.1);
+}
+
+.appStoreButton:hover img {
+    filter: brightness(1.2);
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive */
+@media (max-width: 768px) {
+    .downloadSection {
+        padding: 80px 20px;
+    }
+    
+    .downloadTitle {
+        font-size: 2.4em;
+    }
+    
+    .downloadSubtitle {
+        font-size: 1.1em;
+        margin-bottom: 40px;
+    }
+    
+    .appStores {
+        gap: 20px;
+    }
+    
+    .appStoreButton img {
+        height: 60px;
+    }
+}
+
 @media (max-width: 480px) {
+    .downloadTitle {
+        font-size: 2em;
+    }
+    
     .appStoreButton img {
         height: 50px;
     }

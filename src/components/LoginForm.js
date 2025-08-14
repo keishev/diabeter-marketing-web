@@ -61,7 +61,7 @@ const LoginForm = () => {
   return (
      <div className={styles.pageBackground}>
     <div className={styles.formContainer}>
-      <h2>Login to Diabeter</h2>
+      <h2>Login to Diabeater </h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         {/* NEW: Grid container for 2 inputs */}
         <div className={styles.gridInputs}>

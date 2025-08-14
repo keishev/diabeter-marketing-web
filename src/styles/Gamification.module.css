@@ -1,162 +1,275 @@
 /* src/styles/Gamification.module.css */
 
 .gamificationSection {
-    /* Your desired background color for ONLY this section */
-    background-color: #e0f2f7; /* Example: A light blue color */
-    /* Or a subtle gradient if you prefer: */
-    /* background: linear-gradient(to bottom, #e0f2f7, #c1e4ee); */
-    height: 640px;
-    color: #333; /* Darker text for a light background */
-    padding: 80px 20px; /* Provides the vertical padding for the section */
-    text-align: center; /* For the overall section text alignment */
+    background: linear-gradient(135deg, #e0f2f7 0%, #c8e6f0 100%);
+    padding: 100px 20px;
+    color: #333;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Ensure the .gamificationSection.section-light rule is still present if you're overriding index.css */
+.gamificationSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 80% 20%, rgba(30, 82, 92, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(247, 149, 84, 0.05) 0%, transparent 50%);
+    z-index: 1;
+}
+
 .gamificationSection.section-light {
-    background-color: #e0f2f7; /* Keep this to ensure override */
+    background: linear-gradient(135deg, #e0f2f7 0%, #c8e6f0 100%);
 }
-
 
 .contentWrapper {
-    display: flex; /* Enables flexbox for two-column layout */
-    align-items: center; /* Vertically centers items in the row */
-    justify-content: center; /* Centers the whole wrapper horizontally */
-    max-width: 1200px; /* Limit content width */
-    margin: 0 auto; /* Center the wrapper */
-    gap: 40px; /* Space between the columns */
-    flex-wrap: wrap; /* Allows columns to stack on smaller screens */
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: center;
+    justify-content: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 80px;
+    position: relative;
+    z-index: 2;
 }
 
 .imageColumn {
-    flex: 1; /* Allows this column to grow */
-    min-width: 300px; /* Minimum width before wrapping */
-    text-align: center; /* Center the image within its column */
-    /* Add specific positioning for the character if needed, relative to its container */
-    position: relative; /* If you need to position an element absolutely inside */
-}
-
-.gamificationCharacter { /* Adjust based on your character image */
-    width: 600px;
-    height: 800px;;
-    display: block; /* Removes extra space below image */
-    margin: 0 auto;
-    /* Based on image_3d9f0d.png, the character is on the left and might need some negative margin */
-    /* This positioning can be tricky and might require trial and error with your actual image */
     position: relative;
-    top: -50px; /* Example: Pull up into the background */
-    left: -50px; /* Example: Pull left into the background */
-    margin-left: -200px;
-    margin-top: -30px;
-    z-index: 1; /* Ensure it stays above the background but below text if text overlaps */
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-mask-mode: alpha; /* Use the alpha channel of the gradient as the mask */
--webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)); /* For Safari and older browsers */
--webkit-mask-mode: alpha;
+    text-align: center;
+    animation: fadeInLeft 1s ease-out;
 }
 
+.gamificationCharacter {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(30, 82, 92, 0.15);
+    transition: all 0.4s ease;
+    animation: floatCharacter 6s ease-in-out infinite;
+}
+
+@keyframes floatCharacter {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    33% { transform: translateY(-10px) scale(1.02); }
+    66% { transform: translateY(-5px) scale(1.01); }
+}
+
+.gamificationCharacter:hover {
+    transform: scale(1.05);
+    box-shadow: 0 25px 60px rgba(30, 82, 92, 0.2);
+}
 
 .textColumn {
-    flex: 1.5; /* Gives the text column more space */
-    min-width: 400px; /* Minimum width before wrapping */
-    text-align: left; /* Text content aligns left */
-    max-width: 700px; /* Prevents text from being too wide */
-    z-index: 2; /* Ensure text is above background character */
+    text-align: left;
+    animation: fadeInRight 1s ease-out;
 }
 
 .sectionHeading {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    width: 900px;
-    color: #2c3e50;
-    text-align: left; /* Align heading left as well */
-    margin-top: -100px;
-    margin-left: -70px;
+    font-size: 3.2em;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #1e525c;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+}
+
+.sectionHeading::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #f79554, #ffb076);
+    border-radius: 2px;
+    animation: expandWidth 1s ease-out 0.5s both;
+}
+
+@keyframes expandWidth {
+    0% { width: 0; }
+    100% { width: 60px; }
 }
 
 .sectionDescription {
-    font-size: 1.1em;
-    margin-bottom: 40px;
-    line-height: 1.6;
+    font-size: 1.2em;
+    margin-bottom: 50px;
+    line-height: 1.7;
     color: #555;
-    text-align:justify; /* Align description left */
-    margin-left: -70px;
+    max-width: 600px;
 }
 
-/* --- START OF CHANGES FOR 2x2 GRID --- */
 .gamificationList {
     list-style: none;
     padding: 0;
     margin: 0;
-    
-    display: grid; /* Use CSS Grid */
-    grid-template-columns: repeat(2, 1fr); /* Two equal columns */
-    gap: 50px; /* Space between grid items */
-    
-    /* Ensure the list itself is left-aligned within its textColumn */
-    /* If max-width is set, you might also want margin: 0; to center the grid within its column */
-    max-width: 600px; /* Limit the overall width of the 2x2 grid */
-    margin: 0 auto; /* Center the grid within textColumn */
-    margin-left: -0px;
-    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 700px;
 }
 
 .gamificationList li {
-    background-color: #1e525c;
-    padding: 15px 20px;
-    border-radius: 5px;
+    background: linear-gradient(135deg, #1e525c, #2a6b77);
+    padding: 25px;
+    border-radius: 15px;
     color: #fffaf3;
-   box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    text-align: left; /* Keep text alignment left for individual items */
-    margin-bottom: 0; /* Remove margin-bottom as gap handles spacing */
-    height: 100%; /* Make items same height in a row */
-    display: flex; /* Helps vertically align content if text varies */
-    align-items: center; /* Vertically center content in each list item */
-    height: 100px;
+    box-shadow: 0 10px 30px rgba(30, 82, 92, 0.15);
+    text-align: left;
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+    font-size: 1.05em;
+    font-weight: 500;
+    line-height: 1.5;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease-out;
+    animation-fill-mode: both;
 }
 
-/* Original .gamificationImage from your input, adapt if still needed */
-/* Note: The image in image_3d9f0d.png is a character, not a "screenshot" that fits these styles */
-/*
-.gamificationImage {
-    max-width: 100%;
-    height: 200px; // Consider using auto for height to maintain aspect ratio
-    margin-top: 40px;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    // These negative margins seem intended for an entirely different layout:
-    // margin-left: -400px;
-    // margin-top: -800px;
+.gamificationList li:nth-child(1) { animation-delay: 0.1s; }
+.gamificationList li:nth-child(2) { animation-delay: 0.2s; }
+.gamificationList li:nth-child(3) { animation-delay: 0.3s; }
+.gamificationList li:nth-child(4) { animation-delay: 0.4s; }
+
+.gamificationList li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(247, 149, 84, 0.2), transparent);
+    transition: left 0.6s ease;
 }
-*/
+
+.gamificationList li:hover::before {
+    left: 100%;
+}
+
+.gamificationList li:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(30, 82, 92, 0.25);
+}
+
+.gamificationList li::after {
+    content: '✨';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.2em;
+    opacity: 0.7;
+}
+
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 /* Responsive adjustments */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
     .contentWrapper {
-        flex-direction: column; /* Stack columns on smaller screens */
-        gap: 20px;
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
     }
-    .imageColumn,
+    
     .textColumn {
-        min-width: unset; /* Remove min-width for stacking */
-        max-width: 100%;
-        width: 100%;
+        text-align: center;
     }
-    .gamificationCharacter {
-        top: 0; /* Reset character position for stacking */
-        left: 0;
+    
+    .sectionHeading {
+        font-size: 2.8em;
     }
-    .sectionHeading,
-    .sectionDescription,
+    
     .gamificationList {
-        text-align: center; /* Center text when stacked if preferred */
+        max-width: 600px;
+        margin: 0 auto;
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
+    .gamificationSection {
+        padding: 80px 20px;
+    }
+    
+    .contentWrapper {
+        gap: 40px;
+    }
+    
+    .sectionHeading {
+        font-size: 2.4em;
+    }
+    
+    .sectionDescription {
+        font-size: 1.1em;
+        margin-bottom: 40px;
+    }
+    
+    .gamificationList {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .gamificationList li {
+        padding: 20px;
+        min-height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
     .sectionHeading {
         font-size: 2em;
     }
+    
     .sectionDescription {
         font-size: 1em;
+    }
+    
+    .gamificationList li {
+        font-size: 1em;
+        padding: 18px;
+    }
+    
+    .gamificationCharacter {
+        max-width: 300px;
     }
 }

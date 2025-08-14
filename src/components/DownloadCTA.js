@@ -1,4 +1,3 @@
-// src/components/DownloadCTA.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/DownloadCTA.module.css';
@@ -13,13 +12,21 @@ const DownloadCTA = ({ title, subtitle, googlePlayLink }) => {
   };
 
   return (
-    <section id="download" className="section-cta">
-      <h2>{title}</h2> {/* Use prop */}
-      <p>{subtitle}</p> {/* Use prop */}
-      <div className={styles.appStores}>
-        <a href={googlePlayLink} className={styles.appStoreButton} onClick={handleRedirectToSignUp} target="_blank" rel="noopener noreferrer"> {/* Use prop and add target/rel */}
-          <img src="/images/placeholder-google-play.png" alt="Get it on Google Play" />
-        </a>
+    <section id="download" className={styles.downloadSection}>
+      <div className={styles.container}>
+        <h2 className={styles.downloadTitle}>{title}</h2>
+        <p className={styles.downloadSubtitle}>{subtitle}</p>
+        <div className={styles.appStores}>
+          <a 
+            href={googlePlayLink} 
+            className={styles.appStoreButton} 
+            onClick={handleRedirectToSignUp} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <img src="/images/placeholder-google-play.png" alt="Get it on Google Play" />
+          </a>
+        </div>
       </div>
     </section>
   );

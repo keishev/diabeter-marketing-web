@@ -8,6 +8,7 @@ import Nutritionists from './components/Nutritionists';
 import Gamification from './components/Gamification';
 import FeaturesComparison from './components/FeaturesComparison';
 import Testimonials from './components/Testimonials';
+import Team from './components/Team'; // NEW: Import Team component
 import Footer from './components/Footer';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
@@ -55,6 +56,8 @@ const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
             premiumFeatureList={marketingContent.premiumFeatureList || []}
             ctaText={marketingContent.comparisonCtaText}
         />
+        {/* NEW: Add Team component right before DownloadCTA */}
+        <Team />
         <DownloadCTA
             title={marketingContent.downloadCTATitle}
             subtitle={marketingContent.downloadCTASubtitle}
@@ -108,6 +111,7 @@ function App() {
                                 testimonialsForComponent={content.testimonials} // Use testimonials from the 'content' object
                             />
                             <Footer
+                                logoText={content.headerLogoText} 
                                 aboutText={content.footerAboutText}
                                 contactEmail={content.footerContactEmail}
                                 contactPhone={content.footerContactPhone}
@@ -130,6 +134,7 @@ function App() {
                             />
                             <SignUpForm />
                             <Footer
+                                logoText={content.headerLogoText} 
                                 aboutText={content.footerAboutText}
                                 contactEmail={content.footerContactEmail}
                                 contactPhone={content.footerContactPhone}
@@ -152,6 +157,7 @@ function App() {
                             />
                             <LoginForm />
                             <Footer
+                                logoText={content.headerLogoText} 
                                 aboutText={content.footerAboutText}
                                 contactEmail={content.footerContactEmail}
                                 contactPhone={content.footerContactPhone}

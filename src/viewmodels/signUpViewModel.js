@@ -1,6 +1,7 @@
 // src/viewmodels/signUpViewModel.js
 import { useState, useEffect } from 'react';
 import { signUpNewUser, getAuthUser, checkEmailVerification } from '../repositories/userRepository'; 
+import { Timestamp } from 'firebase/firestore';
 
 const useSignUpViewModel = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const useSignUpViewModel = () => {
         email: '',
         password: '',
         confirmPassword: '',
+        dateOfBirth: '', // Date string from input
     });
     const [formErrors, setFormErrors] = useState({});
     const [signUpState, setSignUpState] = useState({
@@ -27,15 +29,73 @@ const useSignUpViewModel = () => {
         }
     };
 
+    const handleDateChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+        if (formErrors[name]) {
+            setFormErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
+        }
+    };
+
+    // Convert date string to Firebase Timestamp with proper timezone
+    const convertDateToTimestamp = (dateString) => {
+        if (!dateString) return null;
+        
+        // Create date at noon local time to avoid timezone issues
+        const date = new Date(dateString + 'T12:00:00');
+        
+        // Create Firestore Timestamp
+        return Timestamp.fromDate(date);
+    };
+
+    // Format timestamp for display (like "14 July 2025 at 11:50:20 UTC+8")
+    const formatTimestampForDisplay = (timestamp) => {
+        if (!timestamp) return '';
+        
+        const date = timestamp.toDate();
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZoneName: 'short'
+        };
+        
+        return date.toLocaleDateString('en-GB', options);
+    };
+
     const validateForm = () => {
         let errors = {};
-        const { firstName, lastName, email, password, confirmPassword } = formData;
+        const { firstName, lastName, email, password, confirmPassword, dateOfBirth } = formData;
 
         if (!firstName) errors.firstName = 'First name is required';
         if (!lastName) errors.lastName = 'Last name is required';
         if (!email) errors.email = 'Email is required';
         else if (!/\S+@\S+\.\S+/.test(email)) errors.email = 'Email is invalid';
-        // The DOB validation has been removed here.
+        
+        // Date of Birth validation
+        if (!dateOfBirth) {
+            errors.dateOfBirth = 'Date of birth is required';
+        } else {
+            const birthDate = new Date(dateOfBirth);
+            const today = new Date();
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            if (age < 13) {
+                errors.dateOfBirth = 'You must be at least 13 years old to sign up';
+            } else if (age > 120) {
+                errors.dateOfBirth = 'Please enter a valid date of birth';
+            }
+        }
+        
+        // Password validation
         if (!password) {
             errors.password = 'Password is required';
         } else {
@@ -55,6 +115,7 @@ const useSignUpViewModel = () => {
                 errors.password = errors.password.trim();
             }
         }
+        
         if (password !== confirmPassword) errors.confirmPassword = 'Passwords do not match';
 
         setFormErrors(errors);
@@ -65,12 +126,20 @@ const useSignUpViewModel = () => {
         if (!validateForm()) return;
 
         setSignUpState(prevState => ({ ...prevState, isLoading: true, error: null }));
+        
         try {
+            // Convert date of birth to Firebase Timestamp
+            const dobTimestamp = convertDateToTimestamp(formData.dateOfBirth);
+            
+            console.log('Date of Birth will be stored as:', formatTimestampForDisplay(dobTimestamp));
+            
             const user = await signUpNewUser(formData.email, formData.password, {
                 firstName: formData.firstName,
                 lastName: formData.lastName,
-                // The dob field has been removed from the data object.
+                dateOfBirth: dobTimestamp, // Store as Firestore Timestamp
+                createdAt: Timestamp.now(), // Also store creation timestamp
             });
+            
             setSignUpState(prevState => ({
                 ...prevState,
                 isRegistered: true,
@@ -78,6 +147,7 @@ const useSignUpViewModel = () => {
                 user: user,
             }));
         } catch (e) {
+            console.error('Sign up error:', e);
             setSignUpState(prevState => ({
                 ...prevState,
                 isLoading: false,
@@ -86,14 +156,33 @@ const useSignUpViewModel = () => {
         }
     };
     
-    const checkVerificationStatus = () => {
-        const user = getAuthUser();
-        if (user) {
-            user.reload().then(() => {
+    const checkVerificationStatus = async () => {
+        setSignUpState(prevState => ({ ...prevState, isLoading: true, error: null }));
+        
+        try {
+            const user = getAuthUser();
+            if (user) {
+                await user.reload();
                 if (checkEmailVerification(user)) {
-                    setSignUpState(prevState => ({ ...prevState, isVerified: true }));
+                    setSignUpState(prevState => ({ 
+                        ...prevState, 
+                        isVerified: true,
+                        isLoading: false 
+                    }));
+                } else {
+                    setSignUpState(prevState => ({ 
+                        ...prevState, 
+                        isLoading: false,
+                        error: 'Email not yet verified. Please check your email and try again.' 
+                    }));
                 }
-            });
+            }
+        } catch (error) {
+            setSignUpState(prevState => ({ 
+                ...prevState, 
+                isLoading: false,
+                error: 'Error checking verification status. Please try again.' 
+            }));
         }
     };
 
@@ -102,8 +191,10 @@ const useSignUpViewModel = () => {
         formErrors,
         signUpState,
         handleChange,
+        handleDateChange,
         handleSignUp,
         checkVerificationStatus,
+        formatTimestampForDisplay, // Export for potential use
     };
 };
 

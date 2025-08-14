@@ -34,7 +34,7 @@ const FeaturesComparison = ({
       <div className={styles.container}>
         <h2 className={styles.sectionHeading}>{title}</h2>
         <p className={styles.sectionDescription}>
-          Diabeter offers flexible plans to fit your needs, whether you're just starting out or ready to unlock advanced insights.
+          Diabeater offers two plans to suit your needs. Compare the features below to find the right fit for you.
         </p>
         <div className={styles.comparisonGrid}>
           {/* Basic Plan Card */}

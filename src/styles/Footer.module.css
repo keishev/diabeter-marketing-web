@@ -1,32 +1,62 @@
+/* src/styles/Footer.module.css */
+
 .footer {
-    background-color: #333;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
     color: white;
-    padding: 40px 20px;
+    padding: 60px 20px 30px 20px;
     text-align: center;
-    font-size: 0.9em;
+    font-size: 0.95em;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(247, 149, 84, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(30, 82, 92, 0.05) 0%, transparent 50%);
+    z-index: 1;
 }
 
 .footerContent {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
     align-items: center;
-    flex-wrap: wrap;
     max-width: 1200px;
-    margin: 0 auto 30px auto;
-    
+    margin: 0 auto 40px auto;
+    position: relative;
+    z-index: 2;
 }
 
 .footerLogo {
     display: flex;
     align-items: center;
-    font-size: 1.5em;
-    font-weight: bold;
+    justify-content: center;
+    font-size: 1.8em;
+    font-weight: 800;
     color: #f79554;
+    transition: all 0.3s ease;
+}
+
+.footerLogo:hover {
+    transform: scale(1.05);
 }
 
 .footerLogo img {
-    height: 70px;
-    margin-right: 10px;
+    height: 80px;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.footerLogo:hover img {
+    transform: rotate(5deg);
 }
 
 .footerLinks ul {
@@ -36,46 +66,77 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-}
-
-.footerLinks ul li {
-    margin: 0 15px;
+    gap: 30px;
 }
 
 .footerLinks ul li a {
-    color: white;
-    transition: color 0.3s ease;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    font-size: 1.05em;
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+    padding: 5px 0;
+}
+
+.footerLinks ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #f79554, #ffb076);
+    transition: width 0.3s ease;
+}
+
+.footerLinks ul li a:hover::after {
+    width: 100%;
 }
 
 .footerLinks ul li a:hover {
-    color: #2ecc71;
+    color: #f79554;
+    transform: translateY(-2px);
+}
+
+.socialMedia {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.socialMedia a {
+    display: inline-block;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.socialMedia a:hover {
+    background: rgba(247, 149, 84, 0.8);
+    transform: translateY(-3px) scale(1.1);
 }
 
 .socialMedia img {
-    height: 30px;
-    margin: 0 10px;
-    transition: transform 0.3s ease;
+    height: 24px;
+    width: 24px;
+    transition: all 0.3s ease;
+    filter: brightness(0) invert(1);
 }
+
+.socialMedia a:hover img {
+    filter: brightness(1) invert(0);
+}
+
 .copyrightText {
-  /* Your desired styles for this specific paragraph */
-  font-size: 0.85em; /* Example: Make it slightly smaller */
-  color: #a0a0a0; /* Example: A lighter grey color */
-  margin-top: 15px; /* Example: Add some space above it */
-  text-align: center; /* Example: Ensure it's centered */
-  /* Add any other styles you want to apply uniquely to this <p> */
-}
-
-.socialMedia img:hover {
-    transform: scale(1.1);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .footerContent {
-        flex-direction: column;
-    }
-
-    .footerLinks, .social-media {
-        margin-top: 20px;
-    }
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 30px;
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 2;
+    line-height: 1.5;
 }
