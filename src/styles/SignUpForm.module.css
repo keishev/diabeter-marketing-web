@@ -344,3 +344,53 @@
         font-size: 1.1em;
     }
 }
+/* Add these styles to your existing SignUpForm.module.css */
+
+.fallbackSection {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.fallbackMessage {
+    color: #856404;
+    margin: 0 0 15px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.fallbackButton {
+    background: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.fallbackButton:hover:not(:disabled) {
+    background: #218838 !important;
+    border-color: #1e7e34 !important;
+}
+
+.downloadNote {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Animation for fallback section */
+.fallbackSection {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

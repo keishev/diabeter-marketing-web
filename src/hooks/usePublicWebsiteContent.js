@@ -1,4 +1,4 @@
-// src/usePublicWebsiteContent.js
+// src/usePublicWebsiteContent.js marketing
 
 import { useState, useEffect } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
@@ -54,6 +54,13 @@ const PUBLIC_DEFAULT_CONTENT = {
     downloadCTASubtitle: "Available on iOS and Android.",
     appStoreLink: "#",
     googlePlayLink: "#",
+    
+    // APK Download Configuration - NEW
+    apkDownloadUrl: "/assets/Diabeater.apk",
+    apkFileName: "Diabeater.apk",
+    apkFallbackGDriveLink: "https://drive.google.com/file/d/your-file-id/view?usp=sharing",
+    apkFallbackMessage: "Having trouble downloading? Try our Google Drive link instead.",
+    
     footerAboutText: "DiaBeater is committed to providing innovative tools.",
     footerContactEmail: "info@diabeater.com",
     footerContactPhone: "(123) 456-7890",

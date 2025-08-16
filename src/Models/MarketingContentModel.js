@@ -1,4 +1,4 @@
-// src/models/MarketingContentModel.js
+// src/models/MarketingContentModel.js //marketing
 
 class MarketingContentModel {
     constructor(data = {}) {
@@ -70,6 +70,12 @@ class MarketingContentModel {
         this.downloadCTASubtitle = data.downloadCTASubtitle ?? "Available on iOS and Android. Start your journey to better health now.";
         this.appStoreLink = data.appStoreLink ?? "#"; 
         this.googlePlayLink = data.googlePlayLink ?? "#"; 
+
+        // APK Download Configuration - NEW
+        this.apkDownloadUrl = data.apkDownloadUrl ?? "/assets/Diabeater.apk";
+        this.apkFileName = data.apkFileName ?? "Diabeater.apk";
+        this.apkFallbackGDriveLink = data.apkFallbackGDriveLink ?? "https://drive.google.com/file/d/your-file-id/view?usp=sharing";
+        this.apkFallbackMessage = data.apkFallbackMessage ?? "Having trouble downloading? Try our Google Drive link instead.";
 
         this.footerAboutText = data.footerAboutText ?? "DiaBeater is committed to providing innovative tools for diabetes management.";
         this.footerContactEmail = data.footerContactEmail ?? "info@diabeater.com";

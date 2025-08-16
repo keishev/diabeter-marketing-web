@@ -44,23 +44,26 @@ class FeedbackService {
 
     // This method is for the public marketing website
     async getPublicFeaturedMarketingFeedbacks() {
-        try {
-            const q = query(
-                this.feedbackCollectionRef,
-                where("displayOnMarketing", "==", true),
-                where("rating", "==", 5),
-                where("status", "==", "Approved"),
-                limit(3)
-            );
-            const querySnapshot = await getDocs(q);
-            return querySnapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            }));
-        } catch (error) {
-            console.error("Error fetching public featured marketing feedbacks:", error);
-            throw error;
-        }
+    try {
+        const q = query(
+            this.feedbackCollectionRef,
+            where("displayOnMarketing", "==", true),
+            where("rating", "==", 5),
+            limit(3)
+        );
+        const querySnapshot = await getDocs(q);
+        const result = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        console.log(`[Marketing Website] Retrieved ${result.length} featured feedbacks`);
+        return result;
+    } catch (error) {
+        console.error("Error fetching marketing feedbacks:", error);
+        throw error;
     }
 }
+}
+
 export default new FeedbackService();
