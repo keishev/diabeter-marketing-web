@@ -28,7 +28,7 @@ const APKFileUploadSection = ({
         // Validate file size (max 100MB)
         const maxSize = 200 * 1024 * 1024; // 100MB
         if (file.size > maxSize) {
-            setError('APK file size must be less than 100MB');
+            setError('APK file size must be less than 200MB');
             return;
         }
 
@@ -165,7 +165,7 @@ const APKFileUploadSection = ({
                     <h4>Upload Guidelines:</h4>
                     <ul>
                         <li>File must be in .apk format</li>
-                        <li>Maximum file size: 100MB</li>
+                        <li>Maximum file size: 200MB</li>
                         <li>Uploaded APK will replace the existing one</li>
                         <li>File will be stored securely in Firebase Storage</li>
                     </ul>
