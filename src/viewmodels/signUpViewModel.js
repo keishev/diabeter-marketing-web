@@ -68,32 +68,10 @@ const useSignUpViewModel = () => {
 
     const validateForm = () => {
         let errors = {};
-        const { firstName, lastName, email, password, confirmPassword, dateOfBirth } = formData;
+        const { email, password, confirmPassword } = formData;
 
-        if (!firstName) errors.firstName = 'First name is required';
-        if (!lastName) errors.lastName = 'Last name is required';
         if (!email) errors.email = 'Email is required';
         else if (!/\S+@\S+\.\S+/.test(email)) errors.email = 'Email is invalid';
-        
-        // Date of Birth validation
-        if (!dateOfBirth) {
-            errors.dateOfBirth = 'Date of birth is required';
-        } else {
-            const birthDate = new Date(dateOfBirth);
-            const today = new Date();
-            const age = today.getFullYear() - birthDate.getFullYear();
-            const monthDiff = today.getMonth() - birthDate.getMonth();
-            
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-            
-            if (age < 13) {
-                errors.dateOfBirth = 'You must be at least 13 years old to sign up';
-            } else if (age > 120) {
-                errors.dateOfBirth = 'Please enter a valid date of birth';
-            }
-        }
         
         // Password validation
         if (!password) {
@@ -128,16 +106,8 @@ const useSignUpViewModel = () => {
         setSignUpState(prevState => ({ ...prevState, isLoading: true, error: null }));
         
         try {
-            // Convert date of birth to Firebase Timestamp
-            const dobTimestamp = convertDateToTimestamp(formData.dateOfBirth);
-            
-            console.log('Date of Birth will be stored as:', formatTimestampForDisplay(dobTimestamp));
-            
             const user = await signUpNewUser(formData.email, formData.password, {
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                dateOfBirth: dobTimestamp, // Store as Firestore Timestamp
-                createdAt: Timestamp.now(), // Also store creation timestamp
+                createdAt: Timestamp.now(), // Store creation timestamp
             });
             
             setSignUpState(prevState => ({

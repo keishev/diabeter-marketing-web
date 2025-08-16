@@ -26,7 +26,7 @@ const APKFileUploadSection = ({
         }
 
         // Validate file size (max 100MB)
-        const maxSize = 100 * 1024 * 1024; // 100MB
+        const maxSize = 200 * 1024 * 1024; // 100MB
         if (file.size > maxSize) {
             setError('APK file size must be less than 100MB');
             return;

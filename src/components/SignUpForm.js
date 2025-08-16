@@ -93,7 +93,6 @@ const SignUpForm = () => {
 
     const handleSignUp = async () => {
         console.log('handleSignUp called');
-        
         if (!validateForm()) {
             console.log('Form validation failed');
             return;
@@ -186,7 +185,7 @@ const SignUpForm = () => {
         }
     };
 
-    const downloadAPK = async () => {
+    const downloadAPK = () => {
         console.log('Download APK button clicked!');
         console.log('Content object:', content);
         setDownloadAttempted(true);
@@ -218,9 +217,7 @@ const SignUpForm = () => {
                 setShowFallback(true);
             }, 3000); // Reduced from 5000 to 3000 for faster testing
             
-            // Redirect to home after longer delay
-            setTimeout(() => navigate('/'), 8000); // Increased delay to see fallback
-            
+            // Removed automatic redirect - users can now stay on the download page
         } catch (error) {
             console.error('Error downloading APK:', error);
             alert('Download failed. Please try the Google Drive link below.');
@@ -297,22 +294,6 @@ const SignUpForm = () => {
                                 >
                                     Download from Google Drive
                                 </button>
-                                
-                                {/* Debug info - remove this later */}
-                                <div style={{ 
-                                    fontSize: '12px', 
-                                    color: '#666', 
-                                    marginTop: '10px',
-                                    border: '1px solid #ddd',
-                                    padding: '10px',
-                                    borderRadius: '5px'
-                                }}>
-                                    <p><strong>Debug Info:</strong></p>
-                                    <p>showFallback: {showFallback.toString()}</p>
-                                    <p>downloadAttempted: {downloadAttempted.toString()}</p>
-                                    <p>apkFallbackGDriveLink: {content?.apkFallbackGDriveLink || 'not set'}</p>
-                                    <p>apkFallbackMessage: {content?.apkFallbackMessage || 'not set'}</p>
-                                </div>
                             </div>
                         )}
                     </div>
@@ -418,3 +399,4 @@ const SignUpForm = () => {
 };
 
 export default SignUpForm;
+

@@ -71,7 +71,7 @@ class MarketingContentModel {
         this.appStoreLink = data.appStoreLink ?? "#"; 
         this.googlePlayLink = data.googlePlayLink ?? "#"; 
 
-        // APK Download Configuration - NEW
+        // APK Download Configuration
         this.apkDownloadUrl = data.apkDownloadUrl ?? "/assets/Diabeater.apk";
         this.apkFileName = data.apkFileName ?? "Diabeater.apk";
         this.apkFallbackGDriveLink = data.apkFallbackGDriveLink ?? "https://drive.google.com/file/d/your-file-id/view?usp=sharing";
