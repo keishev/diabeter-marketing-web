@@ -6,36 +6,24 @@ import {
     signInUser,
     getCurrentUser,
     registerUser,
-    isEmailVerified
+    isEmailVerified,
+    signOutUser as firebaseSignOutUser
 } from '../services/firebaseAuthService';
 import { doc, setDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
 
-/**
- * Step 1: Create user account (email/password only)
- */
 export const createUserForVerification = async (email, password) => {
     return await createUserAccount(email, password);
 };
 
-/**
- * Step 2: Send verification email
- */
 export const sendUserVerificationEmail = async (user) => {
     return await sendVerificationEmail(user);
 };
 
-/**
- * Step 3: Check verification status
- */
 export const checkUserEmailVerification = async (user) => {
     return await checkEmailVerificationStatus(user);
 };
 
-/**
- * Step 4: Complete user registration with minimal data
- * Only called after email verification is confirmed
- */
 export const completeUserRegistration = async (user, userData) => {
     try {
         const userDocData = {
@@ -46,7 +34,10 @@ export const completeUserRegistration = async (user, userData) => {
             registrationCompleted: true,
             role: 'basic',
             profileCompleted: false,
-            // Add other fields as needed
+            status: 'Active',
+            isPremium: false,
+            points: 0,
+            level: 1,
         };
         
         await setDoc(doc(db, 'user_accounts', user.uid), userDocData);
@@ -95,6 +86,13 @@ export const checkEmailVerification = (user) => {
 };
 
 /**
+ * Sign out current user
+ */
+export const signOutUser = async () => {
+    return await firebaseSignOutUser();
+};
+
+/**
  * Helper function to format timestamp for display
  */
 export const formatUserTimestamp = (timestamp) => {
@@ -110,6 +108,6 @@ export const formatUserTimestamp = (timestamp) => {
         second: '2-digit',
         timeZoneName: 'short'
     };
-    
+
     return date.toLocaleDateString('en-GB', options);
 };

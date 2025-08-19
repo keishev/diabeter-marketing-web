@@ -122,7 +122,7 @@
 }
 
 .featureItem:hover .featureVideo {
-    opacity: 0.85; /* Very visible video */
+    opacity: 0.85;
 }
 
 /* Content overlay */
@@ -138,11 +138,11 @@
 }
 
 .featureItem:hover .featureContent {
-    background: rgba(255, 255, 255, 0.4); /* Very transparent content overlay */
+    background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
 }
-/* Remove old hover effects and replace with video-enhanced ones */
+
 .featureItem::before {
     content: '';
     position: absolute;
@@ -234,7 +234,7 @@
     }
 
     .featureItem:hover .featureVideo {
-        opacity: 0.6; /* Visible but not overwhelming on tablets */
+        opacity: 0.6;
     }
 }
 
@@ -262,7 +262,7 @@
     }
 
     .featureItem:hover .featureVideo {
-        opacity: 0.5; /* Balanced visibility on mobile */
+        opacity: 0.5;
     }
 }
 
@@ -292,7 +292,6 @@
         font-size: 1em;
     }
 
-    /* Disable video on very small screens for performance */
     .featureVideo {
         display: none;
     }

@@ -1,19 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import usePublicWebsiteContent from './hooks/usePublicWebsiteContent';
-// Removed the redundant import: useMarketingFeedbacks
 import Header from './components/Header';
 import Features from './components/Features';
 import Nutritionists from './components/Nutritionists';
 import Gamification from './components/Gamification';
 import FeaturesComparison from './components/FeaturesComparison';
 import Testimonials from './components/Testimonials';
-import Team from './components/Team'; // NEW: Import Team component
+import Team from './components/Team';
 import Footer from './components/Footer';
 import SignUpForm from './components/SignUpForm';
 import LoginForm from './components/LoginForm';
 import DownloadCTA from './components/DownloadCTA';
-import MarketingVideo from './components/MarketingVideo'; 
+import MarketingVideo from './components/MarketingVideo';
+import PaymentCheckoutPage from './components/PaymentCheckoutPage';
 
 import './App.css';
 
@@ -52,7 +52,7 @@ const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
         />
         <Testimonials
             sectionTitle={marketingContent.testimonialsSectionTitle}
-            testimonials={testimonialsForComponent} // Use the fetched testimonials here
+            testimonials={testimonialsForComponent}
         />
         <FeaturesComparison
             title={marketingContent.featuresComparisonTitle}
@@ -62,7 +62,6 @@ const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
             premiumFeatureList={marketingContent.premiumFeatureList || []}
             ctaText={marketingContent.comparisonCtaText}
         />
-        {/* NEW: Add Team component right before DownloadCTA */}
         <Team />
         <DownloadCTA
             title={marketingContent.downloadCTATitle}
@@ -74,7 +73,6 @@ const HomeContent = ({ marketingContent, testimonialsForComponent }) => (
 );
 
 function App() {
-    // Fetch all public content, which now includes testimonials
     const { content, loading, error } = usePublicWebsiteContent();
 
     if (loading) {
@@ -114,7 +112,7 @@ function App() {
                             />
                             <HomeContent
                                 marketingContent={content}
-                                testimonialsForComponent={content.testimonials} // Use testimonials from the 'content' object
+                                testimonialsForComponent={content.testimonials}
                             />
                             <Footer
                                 logoText={content.headerLogoText} 
@@ -164,6 +162,29 @@ function App() {
                             <LoginForm />
                             <Footer
                                 logoText={content.headerLogoText} 
+                                aboutText={content.footerAboutText}
+                                contactEmail={content.footerContactEmail}
+                                contactPhone={content.footerContactPhone}
+                                address={content.footerAddress}
+                                copyright={content.footerCopyright}
+                                privacyPolicy={content.footerPrivacyPolicy}
+                                termsOfService={content.footerTermsOfService}
+                            />
+                        </>
+                    } />
+                    <Route path="/checkout" element={
+                        <>
+                            <Header
+                                logoText={content.headerLogoText}
+                                navHome={content.headerNavHome}
+                                navFeatures={content.headerNavFeatures}
+                                navAbout={content.headerNavAbout}
+                                navContact={content.headerNavContact}
+                                ctaButton={content.headerCtaButton}
+                            />
+                            <PaymentCheckoutPage />
+                            <Footer
+                                logoText={content.headerLogoText}
                                 aboutText={content.footerAboutText}
                                 contactEmail={content.footerContactEmail}
                                 contactPhone={content.footerContactPhone}

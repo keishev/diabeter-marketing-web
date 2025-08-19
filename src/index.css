@@ -329,7 +329,6 @@ a:focus {
     color: #1e525c;
 }
 
-/* Print styles */
 @media print {
     * {
         background: white !important;
@@ -343,7 +342,6 @@ a:focus {
     }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
     .btn {
         border: 2px solid currentColor;
@@ -354,7 +352,6 @@ a:focus {
     }
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -366,9 +363,7 @@ a:focus {
     }
 }
 
-/* Dark mode support (if implemented later) */
 @media (prefers-color-scheme: dark) {
-    /* This can be expanded if dark mode is needed */
     body {
         background-color: #1a1a1a;
         color: #ffffff;

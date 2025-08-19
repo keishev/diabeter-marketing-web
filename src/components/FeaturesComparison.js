@@ -1,6 +1,7 @@
 // src/components/FeaturesComparison.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 import styles from '../styles/FeaturesComparison.module.css';
 import useFeaturesComparisonViewModel from '../viewmodels/featuresComparisonViewModel';
 
@@ -13,10 +14,22 @@ const FeaturesComparison = ({
   ctaText
 }) => {
   const navigate = useNavigate();
+  const auth = getAuth();
   const { premiumPrice, isLoading, error } = useFeaturesComparisonViewModel();
 
-  const handleSignUpClick = () => {
+  const handleBasicSignUpClick = () => {
     navigate('/signup');
+  };
+
+  const handlePremiumSignUpClick = () => {
+    const user = auth.currentUser;
+    if (user) {
+      // User is logged in, go directly to checkout
+      navigate('/checkout');
+    } else {
+      // User not logged in, redirect to login with checkout intent
+      navigate('/login', { state: { redirectTo: '/checkout' } });
+    }
   };
 
   const renderPrice = () => {
@@ -46,7 +59,7 @@ const FeaturesComparison = ({
                 <li className={styles.featureItem} key={`basic-feat-${index}`}>✔️ {item}</li>
               ))}
             </ul>
-            <button className={styles.ctaButton} onClick={handleSignUpClick}>{ctaText}</button>
+            <button className={styles.ctaButton} onClick={handleBasicSignUpClick}>{ctaText}</button>
           </div>
           {/* Premium Plan Card */}
           <div className={styles.planCard}>
@@ -57,7 +70,9 @@ const FeaturesComparison = ({
                 <li className={styles.featureItem} key={`premium-feat-${index}`}>{item.startsWith('✨') || item.startsWith('✔️') ? '' : '✔️ '}{item}</li>
               ))}
             </ul>
-            <button className={`${styles.ctaButton} ${styles.premiumButton}`} onClick={handleSignUpClick}>{ctaText}</button>
+            <button className={`${styles.ctaButton} ${styles.premiumButton}`} onClick={handlePremiumSignUpClick}>
+              Get Premium
+            </button>
           </div>
         </div>
       </div>

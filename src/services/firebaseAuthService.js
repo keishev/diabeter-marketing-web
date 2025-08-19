@@ -1,7 +1,6 @@
 // src/services/firebaseAuthService.js
 
-// Correct the import path to navigate up one directory to find 'firebase.js'
-import { app, db } from '../firebase'; 
+import { app, db } from '../firebase';
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
@@ -47,6 +46,31 @@ export const registerUser = async (email, password, userData) => {
 export const createUserAccount = async (email, password) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+        return {
+            success: true,
+            user: userCredential.user,
+            message: 'User account created successfully'
+        };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.code,
+            message: error.message
+        };
+    }
+};
+
+/**
+ * Creates a user account and immediately signs them out
+ */
+export const createUserAccountWithoutAuth = async (email, password) => {
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+        // Immediately sign out the user to keep them unauthenticated
+        await signOut(auth);
+
         return {
             success: true,
             user: userCredential.user,
