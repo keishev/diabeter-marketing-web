@@ -1,0 +1,34 @@
+// Add these rules to your Firestore security rules (before the catch-all rule)
+
+// Subscriptions - Allow authenticated users to create their own subscriptions
+match /subscriptions/{subscriptionId} {
+  // Allow authenticated users to create subscriptions for themselves
+  allow create: if request.auth != null &&
+                request.resource.data.userId == request.auth.uid;
+
+  // Allow users to read their own subscriptions
+  allow read: if request.auth != null &&
+              resource.data.userId == request.auth.uid;
+
+  // Allow admins to read/write any subscription
+  allow read, write: if isAdmin();
+}
+
+// Partner Codes - Allow users to create their own partner codes
+match /partner_codes/{codeId} {
+  // Allow authenticated users to create partner codes for themselves
+  allow create: if request.auth != null &&
+                request.resource.data.ownerUserId == request.auth.uid;
+
+  // Allow users to read their own partner codes
+  allow read: if request.auth != null &&
+              resource.data.ownerUserId == request.auth.uid;
+
+  // Allow admins to read/write any partner code
+  allow read, write: if isAdmin();
+}
+
+// Plans - Already exists but ensure it's accessible
+match /plans/{planId} {
+  allow read: if true; // Already exists
+}

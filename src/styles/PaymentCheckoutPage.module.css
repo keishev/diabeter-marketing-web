@@ -175,14 +175,14 @@ background-color: #fffaf3;
 
 .premiumBadge {
   display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f79554 0%, #c66524 100%);
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 25px;
   font-weight: 600;
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 15px rgba(247, 149, 84, 0.3);
 }
 
 .existingPlanText {
@@ -193,13 +193,12 @@ background-color: #fffaf3;
 }
 
 .existingPlanSubtext {
-@media (max-width: 768px) {
   color: #718096;
   margin-bottom: 2rem;
 }
 
 .backButton {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #f79554 0%, #c66524 100%);
   color: white;
   border: none;
   padding: 0.75rem 2rem;
@@ -212,9 +211,10 @@ background-color: #fffaf3;
 
 .backButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 20px rgba(247, 149, 84, 0.3);
 }
 
+@media (max-width: 768px) {
   .checkoutContainer {
     padding: 1rem;
   }
