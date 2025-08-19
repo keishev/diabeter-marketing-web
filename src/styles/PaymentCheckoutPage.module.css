@@ -1,0 +1,287 @@
+.checkoutContainer {
+  min-height: 100vh;
+background-color: #fffaf3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.checkoutCard {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  padding: 2.5rem;
+  margin: 2rem auto;
+}
+
+.title {
+  color: #2d3748;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.planSummary {
+  background: #f7fafc;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid #667eea;
+}
+
+.planSummary h2 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.planSummary p {
+  color: #667eea;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.planSummary ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.planSummary li {
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.paymentForm {
+  margin-top: 2rem;
+}
+
+.paymentForm h3 {
+  color: #2d3748;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  color: #4a5568;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  background: white;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.error {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border-left: 4px solid #c53030;
+}
+
+.submitButton {
+  width: 100%;
+  background-color: #f79554;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 20px;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #c66524;
+  transform: translateY(-2px);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.securityNote {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.securityNote p {
+  color: #718096;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.loadingMessage {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #4a5568;
+}
+
+.loadingMessage p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.existingPlanMessage {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.premiumBadge {
+  display: inline-block;
+  background: linear-gradient(135deg, #f79554 0%, #c66524 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 15px rgba(247, 149, 84, 0.3);
+}
+
+.existingPlanText {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 1rem;
+}
+
+.existingPlanSubtext {
+  color: #718096;
+  margin-bottom: 2rem;
+}
+
+.backButton {
+  background: linear-gradient(135deg, #f79554 0%, #c66524 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(247, 149, 84, 0.3);
+}
+
+@media (max-width: 768px) {
+  .checkoutContainer {
+    padding: 1rem;
+  }
+
+  .checkoutCard {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+.sessionNote {
+  font-size: 0.85rem;
+  color: #718096;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f7fafc;
+  border-radius: 8px;
+  border-left: 3px solid #4299e1;
+  line-height: 1.4;
+}
+
+.loginMessage {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loginMessage p {
+  color: #4a5568;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.loginButton {
+  background-color: #f79554;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
+}
+
+.loginButton:hover {
+  background-color: #c66524;
+  transform: translateY(-2px);
+}
+
+.loadingMessage {
+  text-align: center;
+  padding: 2rem;
+}
+
+.loadingMessage p {
+  color: #4a5568;
+  font-size: 1.1rem;
+}

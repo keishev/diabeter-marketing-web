@@ -10,7 +10,7 @@ const Header = ({
     navAbout,
     navContact,
     ctaButton,
-    heroTitle, // These hero props are now optional
+    heroTitle,
     heroSubtitle,
     heroCtaText
 }) => {
@@ -33,10 +33,8 @@ const Header = ({
     };
 
     const handleNavClick = (sectionId) => {
-        // If we're not on the home page, navigate to home first, then scroll
         if (window.location.pathname !== '/') {
             navigate('/');
-            // Wait for navigation to complete, then scroll
             setTimeout(() => {
                 if (sectionId === 'top') {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -48,7 +46,6 @@ const Header = ({
                 }
             }, 100);
         } else {
-            // If we're already on home page, just scroll
             if (sectionId === 'top') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
@@ -116,7 +113,6 @@ const Header = ({
                     <li><Link to="/signup" className={styles.ctaLink}>{ctaButton}</Link></li>
                 </ul>
             </nav>
-            {/* Conditionally render the hero section */}
             {heroTitle && (
                 <div className={styles.hero}>
                     <div className={styles.heroText}>

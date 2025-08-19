@@ -9,7 +9,8 @@ import {
     sendUserVerificationEmail,
     checkUserEmailVerification,
     completeUserRegistration,
-    getAuthUser 
+    getAuthUser,
+    signOutUser
 } from '../repositories/userRepository';
 import { Timestamp } from 'firebase/firestore';
 
@@ -159,6 +160,8 @@ const SignUpForm = () => {
                 });
 
                 if (result.success) {
+                    console.log('Registration completed successfully. User remains logged in for potential premium upgrade.');
+
                     setSignUpState(prev => ({
                         ...prev,
                         isVerified: true,
@@ -217,7 +220,6 @@ const SignUpForm = () => {
                 setShowFallback(true);
             }, 3000); // Reduced from 5000 to 3000 for faster testing
             
-            // Removed automatic redirect - users can now stay on the download page
         } catch (error) {
             console.error('Error downloading APK:', error);
             alert('Download failed. Please try the Google Drive link below.');
@@ -329,7 +331,7 @@ const SignUpForm = () => {
     return (
         <div className={styles.pageBackground}>
             <div className={styles.formContainer}>
-                <h2>Sign Up for Diabeater</h2>
+                <h2>Sign Up for DiaBeater</h2>
                 <form onSubmit={handleFormSubmit} className={styles.form}>
                     <div className={styles.formGroup}>
                         <label htmlFor="email">Email</label>

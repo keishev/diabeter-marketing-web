@@ -6,15 +6,13 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-    min-height: auto; /* Remove min-height when no hero section */
+    min-height: auto;
 }
 
-/* Only apply min-height when hero section is present */
 .header:has(.hero) {
     min-height: 100vh;
 }
 
-/* Animated background particles */
 .header::before {
     content: '';
     position: absolute;
@@ -393,7 +391,6 @@
         drop-shadow(-2px 16px 32px rgba(0, 0, 0, 0.12));
 }
 
-/* Animate the pseudo-element shadow during float */
 .heroImage::before {
     animation: shadowFloat 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
@@ -421,13 +418,12 @@
     }
 }
 
-/* Enhanced hover effect for pseudo-element */
 .heroImage:hover::before {
     transform: perspective(120px) rotateX(6deg) translateY(8px);
     opacity: 0.65;
     filter: blur(18px);
 }
-/* CTA Button Animation */
+
 .buttonPrimary {
     background: linear-gradient(45deg, #1e525c, #f79554);
     color: white;
@@ -467,7 +463,6 @@
     box-shadow: 0 18px 40px rgba(30, 82, 92, 0.35);
 }
 
-/* Responsive */
 @media (max-width: 1200px) {
     .nav {
         padding: 20px 40px;

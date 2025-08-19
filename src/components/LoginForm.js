@@ -1,16 +1,24 @@
 // src/components/LoginForm.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import styles from '../styles/LoginForm.module.css';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const auth = getAuth();
+
+  // Get the redirect path from the navigation state
+  const redirectTo = location.state?.redirectTo || '/';
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
   const [formErrors, setFormErrors] = useState({});
   const [loginMessage, setLoginMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,20 +46,24 @@ const LoginForm = () => {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoginMessage('');
+    setIsLoading(true);
 
     if (validateForm()) {
-      if (formData.email === 'test@example.com' && formData.password === 'password123') {
+      try {
+        await signInWithEmailAndPassword(auth, formData.email, formData.password);
         setLoginMessage('Login successful! Redirecting...');
         setTimeout(() => {
-          navigate('/');
+          navigate(redirectTo);
         }, 1500);
-      } else {
+      } catch (error) {
+        console.error('Login error:', error);
         setLoginMessage('Invalid email or password.');
       }
     }
+    setIsLoading(false);
   };
 
   const handleSignUpRedirect = () => {
@@ -63,7 +75,6 @@ const LoginForm = () => {
     <div className={styles.formContainer}>
       <h2>Login to Diabeater </h2>
       <form onSubmit={handleSubmit} className={styles.form}>
-        {/* NEW: Grid container for 2 inputs */}
         <div className={styles.gridInputs}>
           <div className={styles.formGroup}>
             <label htmlFor="email">Email</label>
@@ -90,7 +101,7 @@ const LoginForm = () => {
             />
             {formErrors.password && <span className={styles.errorText}>{formErrors.password}</span>}
           </div>
-        </div> {/* END: gridInputs */}
+        </div>
 
         {loginMessage && (
           <div className={`${styles.message} ${loginMessage.includes('successful') ? styles.successMessage : styles.errorMessage}`}>
@@ -98,7 +109,9 @@ const LoginForm = () => {
           </div>
         )}
 
-        <button type="submit" className={styles.ctaButton}>Login</button>
+        <button type="submit" className={styles.ctaButton} disabled={isLoading}>
+          {isLoading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
 
       <div className={styles.signupPrompt}>

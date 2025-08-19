@@ -1,0 +1,18 @@
+# dependencies & build outputs
+node_modules
+.vercel
+.git
+.next/cache
+# media & dumps
+*.mp4
+*.mov
+*.avi
+*.7z
+*.tar
+*.tar.gz
+*.psd
+*.ai
+*.csv
+*.sqlite
+*.bak
+dump/

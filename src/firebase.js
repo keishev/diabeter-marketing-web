@@ -1,6 +1,7 @@
 // src/services/firebaseService.js
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9eCJVgUEzCi_5rD7EjYAwQQYrYH4j4_E",
@@ -14,6 +15,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 export const fetchDocData = async (collectionPath, docId) => {
   try {
@@ -32,4 +34,4 @@ export const fetchDocData = async (collectionPath, docId) => {
   }
 };
 
-export { app, db };
+export { app, db, auth };
