@@ -1,5 +1,5 @@
 // src/services/subscriptionService.js
-import { collection, addDoc, updateDoc, doc, query, where, getDocs, limit, getDoc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, doc, query, where, getDocs, limit, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export class SubscriptionService {
@@ -115,7 +115,7 @@ export class SubscriptionService {
       createdAt: now
     };
 
-    await addDoc(collection(db, 'partner_codes'), codeData);
+    await setDoc(doc(db, 'partner_codes', partnerCode), codeData);
     return partnerCode;
   }
 

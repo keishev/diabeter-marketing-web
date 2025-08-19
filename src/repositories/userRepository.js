@@ -27,7 +27,6 @@ export const checkUserEmailVerification = async (user) => {
 export const completeUserRegistration = async (user, userData) => {
     try {
         const userDocData = {
-            uid: user.uid,
             email: user.email,
             createdAt: userData.createdAt || Timestamp.now(),
             emailVerified: true,
